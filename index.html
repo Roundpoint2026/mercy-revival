@@ -3,242 +3,69 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Chad Taylor's Mercy Revival — new music and tour coming soon." />
+<meta name="description" content="Mercy Revival — site coming soon." />
 <title>Mercy Revival — Coming Soon</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Special+Elite&family=Rye&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --burnt-orange:   #9a7424;
-  --dusty-amber:    #c89c38;
-  --deep-charcoal:  #14110f;
-  --darker:         #0a0807;
-  --washed-denim:   #5a7a8c;
-  --sepia:          #c9a679;
-  --ember:          #e6b53d;
-  --bone:           #e8dcc4;
-  --blood:          #a8232b;
-  --serif:   'Cormorant Garamond', 'Times New Roman', serif;
-  --display: 'Rye', 'Special Elite', serif;
-  --type:    'Special Elite', 'Courier New', monospace;
-  --sans:    'Inter', system-ui, sans-serif;
-  --ease-cinema: cubic-bezier(.16,.84,.16,1);
-  --ease-thunder: cubic-bezier(.7,.0,.2,1);
-}
-* { margin:0; padding:0; box-sizing:border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 html, body {
   width: 100%;
   height: 100%;
-  background: var(--darker);
-  color: var(--bone);
-  font-family: var(--sans);
+  background: #000000;
+  color: #e8dcc4;
+  font-family: 'Inter', system-ui, sans-serif;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
 }
-img { max-width:100%; display:block; }
-::selection { background: var(--ember); color: var(--darker); }
-a { color: inherit; text-decoration: none; }
 
-/* ============================================
-   GLOBAL OVERLAYS
-   ============================================ */
-.grain {
-  pointer-events: none;
-  position: fixed;
-  inset: -50%;
-  width: 200%; height: 200%;
-  z-index: 9000;
-  opacity: .12;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
-  animation: grain 12s steps(10) infinite;
-}
-@keyframes grain {
-  0%,100% { transform: translate(0,0); }
-  10% { transform: translate(-5%,-10%); }
-  20% { transform: translate(-15%,5%); }
-  30% { transform: translate(7%,-25%); }
-  40% { transform: translate(-5%,25%); }
-  50% { transform: translate(-15%,10%); }
-  60% { transform: translate(15%,0); }
-  70% { transform: translate(0,15%); }
-  80% { transform: translate(3%,35%); }
-  90% { transform: translate(-10%,10%); }
-}
-.rain-canvas {
-  position: fixed; inset: 0;
-  z-index: 8500;
-  pointer-events: none;
-  opacity: .55;
-  mix-blend-mode: screen;
-}
-.lightning-flash {
-  pointer-events: none;
-  position: fixed; inset: 0;
-  z-index: 9100;
-  background: rgba(255,255,255,0);
-  mix-blend-mode: screen;
-}
-.lightning-bolt {
-  pointer-events: none;
-  position: fixed; inset: 0;
-  z-index: 9050;
-  width: 100%; height: 100%;
-  opacity: 0;
-}
-.lightning-bolt path {
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 22px rgba(230,181,61,.7));
-}
-.vignette {
-  pointer-events:none;
-  position:fixed; inset:0;
-  z-index:7500;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.65) 100%);
-}
-
-@keyframes shake {
-  0%,100% { transform: translate(0,0); }
-  20% { transform: translate(-3px, 2px); }
-  40% { transform: translate(2px, -2px); }
-  60% { transform: translate(-2px, 3px); }
-  80% { transform: translate(3px, -1px); }
-}
-body.thunder { animation: shake .55s var(--ease-thunder); }
-
-/* ============================================
-   SPLASH STAGE
-   ============================================ */
-.splash {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+body {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-/* depth: band photo background */
-.bg-photo {
-  position: absolute;
-  inset: 0;
-  background-image: url('images/band-photo.png');
-  background-size: cover;
-  background-position: 78% 50%;
-  filter: brightness(.42) saturate(.95) contrast(1.08);
-  transform: scale(1.08);
-  animation: heroDrift 22s ease-in-out infinite alternate;
-  z-index: 1;
-}
-@keyframes heroDrift {
-  0%   { transform: scale(1.08) translate(0, 0); }
-  100% { transform: scale(1.14) translate(-1.5%, -.5%); }
-}
-.bg-tint {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 55%, rgba(230,181,61,0.18), transparent 55%),
-    linear-gradient(180deg, rgba(10,8,7,.55) 0%, rgba(10,8,7,.30) 40%, rgba(10,8,7,.85) 100%);
-}
-
-/* content stack */
-.content {
-  position: relative;
-  z-index: 5;
   text-align: center;
-  padding: 0 28px;
-  width: 100%;
-  max-width: 1200px;
-}
-.logo {
-  width: clamp(280px, 38vw, 600px);
-  height: auto;
-  margin: 0 auto;
-  filter: drop-shadow(0 18px 40px rgba(0,0,0,.7)) drop-shadow(0 0 40px rgba(230,181,61,.16));
-  animation: logoFloat 7s ease-in-out infinite alternate, logoIn 1.8s var(--ease-cinema) .3s both;
-}
-@keyframes logoFloat {
-  0%   { transform: translateY(0) rotate(-.2deg); }
-  100% { transform: translateY(-6px) rotate(.2deg); }
-}
-@keyframes logoIn {
-  0%   { opacity: 0; transform: translateY(20px) scale(.92); filter: drop-shadow(0 0 0 rgba(0,0,0,0)) blur(8px); }
-  100% { opacity: 1; transform: translateY(0)    scale(1);   filter: drop-shadow(0 18px 40px rgba(0,0,0,.7)) drop-shadow(0 0 40px rgba(230,181,61,.16)) blur(0); }
+  padding: 24px;
 }
 
-/* divider: gold hairline + dot */
-.divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 36px auto 28px;
-  opacity: 0;
-  animation: fadeIn 1.4s ease-out 1.2s forwards;
-}
-.divider::before, .divider::after {
-  content:'';
-  display: block;
-  width: clamp(40px, 8vw, 110px);
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--ember), transparent);
-}
-.divider .dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--ember);
-  box-shadow: 0 0 12px var(--ember);
-  animation: dotPulse 2.4s ease-in-out infinite;
-}
-@keyframes dotPulse {
-  0%,100% { opacity: .5; transform: scale(.85); }
-  50%     { opacity: 1; transform: scale(1.15); }
-}
-
-.announcement {
-  font-family: var(--serif);
+.message {
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
   font-style: italic;
-  font-size: clamp(28px, 4.6vw, 60px);
   font-weight: 400;
-  line-height: 1.06;
-  color: var(--bone);
-  letter-spacing: .005em;
-  margin: 0 auto 32px;
-  max-width: 900px;
-  text-shadow: 0 4px 30px rgba(0,0,0,.7);
+  font-size: clamp(28px, 5vw, 56px);
+  letter-spacing: .01em;
+  color: #e8dcc4;
   opacity: 0;
-  animation: fadeIn 1.6s var(--ease-cinema) 1.4s forwards;
+  animation: fadeIn 1.6s ease-out 0.4s forwards;
 }
-.announcement em {
-  color: var(--ember);
-  font-style: italic;
-  font-weight: 500;
-}
-.meta {
-  font-family: var(--type);
+
+.credit {
+  position: absolute;
+  bottom: 32px;
+  left: 0; right: 0;
   font-size: 11px;
-  letter-spacing: .55em;
-  color: var(--sepia);
-  opacity: 0;
-  animation: fadeIn 1.4s ease-out 2s forwards;
+  letter-spacing: .35em;
   text-transform: uppercase;
+  color: rgba(232, 220, 196, .45);
+  opacity: 0;
+  animation: fadeIn 1.4s ease-out 1.4s forwards;
 }
-.meta .pip {
-  display: inline-block;
-  margin: 0 14px;
-  color: var(--ember);
-  opacity: .6;
+
+.credit a {
+  color: #e6b53d;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(230, 181, 61, .25);
+  padding-bottom: 1px;
+  transition: color .8s ease, border-color .8s ease;
+}
+
+.credit a:hover {
+  color: #e8dcc4;
+  border-bottom-color: #e8dcc4;
 }
 
 @keyframes fadeIn {
@@ -246,200 +73,21 @@ body.thunder { animation: shake .55s var(--ease-thunder); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* footer pinned at bottom */
-.footer-strip {
-  position: absolute;
-  bottom: 22px;
-  left: 0; right: 0;
-  z-index: 6;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 32px;
-  font-family: var(--type);
-  font-size: 10px;
-  letter-spacing: .35em;
-  color: var(--bone);
-  opacity: 0;
-  animation: fadeIn 1.4s ease-out 2.4s forwards;
-  pointer-events: none;
-}
-.footer-strip span:first-child { opacity: .55; }
-.footer-strip span:last-child  { opacity: .55; pointer-events: auto; }
-.footer-strip a {
-  color: var(--ember);
-  border-bottom: 1px solid rgba(230,181,61,.3);
-  padding-bottom: 1px;
-  transition: color .8s, border-color .8s;
-}
-.footer-strip a:hover { color: var(--bone); border-bottom-color: var(--bone); }
-
-@media (max-width: 720px) {
-  .footer-strip {
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-    align-items: center;
-  }
-  .announcement { font-size: clamp(24px, 7vw, 40px); }
-}
-
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
     transition-duration: .01ms !important;
   }
-  .grain, .rain-canvas, .lightning-bolt { display:none; }
 }
 </style>
 </head>
 <body>
 
-<canvas class="rain-canvas" id="rainCanvas"></canvas>
-<div class="grain"></div>
-<svg class="lightning-bolt" id="boltSvg" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
-  <path id="boltPath" d=""/>
-</svg>
-<div class="lightning-flash" id="flash"></div>
-<div class="vignette"></div>
+<div class="message">Site coming soon.</div>
 
-<main class="splash">
-  <div class="bg-photo"></div>
-  <div class="bg-tint"></div>
-
-  <div class="content">
-    <img class="logo" src="images/logo.png" alt="Chad Taylor's Mercy Revival"/>
-
-    <div class="divider"><span class="dot"></span></div>
-
-    <h1 class="announcement">
-      New music<br/>
-      <em>and tour</em><br/>
-      coming soon.
-    </h1>
-
-    <div class="meta">
-      VOLUME I <span class="pip">·</span> THE FIRST SINGLE — LOW <span class="pip">·</span> 2026
-    </div>
-  </div>
-
-  <div class="footer-strip">
-    <span>© MERCY REVIVAL</span>
-    <span>SITE BY <a href="https://mediatwistgroup.com" target="_blank" rel="noopener">THE MEDIATWIST GROUP</a> · LITITZ, PA</span>
-  </div>
-</main>
-
-<script>
-(() => {
-  'use strict';
-
-  /* RAIN */
-  const rainCanvas = document.getElementById('rainCanvas');
-  const rctx = rainCanvas.getContext('2d');
-  let drops = [];
-  function sizeRain(){
-    rainCanvas.width = window.innerWidth;
-    rainCanvas.height = window.innerHeight;
-    drops = [];
-    const count = Math.min(120, Math.floor(window.innerWidth / 14));
-    for (let i = 0; i < count; i++){
-      drops.push({
-        x: Math.random() * rainCanvas.width,
-        y: Math.random() * rainCanvas.height,
-        len: 14 + Math.random() * 24,
-        speed: 0.7 + Math.random() * 1.6,
-        opacity: 0.15 + Math.random() * 0.45,
-        wind: -0.18 - Math.random() * 0.12
-      });
-    }
-  }
-  sizeRain();
-  window.addEventListener('resize', sizeRain);
-  (function rainStep(){
-    rctx.clearRect(0,0,rainCanvas.width,rainCanvas.height);
-    rctx.lineCap = 'round';
-    drops.forEach(d => {
-      rctx.strokeStyle = `rgba(232,220,196,${d.opacity})`;
-      rctx.lineWidth = 1;
-      rctx.beginPath();
-      rctx.moveTo(d.x, d.y);
-      rctx.lineTo(d.x + d.wind * 4, d.y + d.len);
-      rctx.stroke();
-      d.x += d.wind;
-      d.y += d.speed;
-      if (d.y > rainCanvas.height + 30 || d.x < -30){
-        d.y = -30;
-        d.x = Math.random() * (rainCanvas.width + 100);
-      }
-    });
-    requestAnimationFrame(rainStep);
-  })();
-
-  /* LIGHTNING */
-  const flash = document.getElementById('flash');
-  const boltSvg = document.getElementById('boltSvg');
-  const boltPath = document.getElementById('boltPath');
-
-  function jaggedPath(startX){
-    const W = 1600, H = 900;
-    const points = [[startX, 0]];
-    let x = startX, y = 0;
-    while (y < H){
-      y += 30 + Math.random() * 70;
-      x += (Math.random() - 0.5) * 180;
-      x = Math.max(40, Math.min(W - 40, x));
-      points.push([x, y]);
-    }
-    let d = `M ${points[0][0]},${points[0][1]}`;
-    for (let i = 1; i < points.length; i++) d += ` L ${points[i][0]},${points[i][1]}`;
-    for (let i = 2; i < points.length - 2; i++){
-      if (Math.random() < 0.35){
-        const [px, py] = points[i];
-        const fx = px + (Math.random() - 0.5) * 220;
-        const fy = py + 60 + Math.random() * 120;
-        d += ` M ${px},${py} L ${fx},${fy}`;
-      }
-    }
-    return d;
-  }
-
-  function triggerLightning(intensity){
-    intensity = intensity || 1;
-    const startX = 200 + Math.random() * 1200;
-    boltPath.setAttribute('d', jaggedPath(startX));
-
-    flash.style.transition = 'background 0.04s linear';
-    flash.style.background = `rgba(255,255,255,${0.85 * intensity})`;
-    boltSvg.style.opacity = '1';
-
-    setTimeout(() => {
-      flash.style.transition = 'background 0.5s ease-out';
-      flash.style.background = 'rgba(255,255,255,0)';
-      boltSvg.style.opacity = '0';
-    }, 70);
-    // double-flash
-    setTimeout(() => {
-      flash.style.transition = 'background 0.04s linear';
-      flash.style.background = `rgba(255,255,255,${0.55 * intensity})`;
-    }, 220);
-    setTimeout(() => {
-      flash.style.transition = 'background 0.5s ease-out';
-      flash.style.background = 'rgba(255,255,255,0)';
-    }, 280);
-
-    document.body.classList.remove('thunder');
-    void document.body.offsetWidth;
-    document.body.classList.add('thunder');
-  }
-
-  function ambientLightning(){
-    const wait = 12000 + Math.random() * 16000;
-    setTimeout(() => { triggerLightning(0.7 + Math.random() * 0.3); ambientLightning(); }, wait);
-  }
-  // first strike on load (after entrance), then ambient
-  setTimeout(() => triggerLightning(.95), 3200);
-  setTimeout(ambientLightning, 8000);
-})();
-</script>
+<div class="credit">
+  Powered by <a href="https://mediatwistgroup.com" target="_blank" rel="noopener">Mediatwist</a>
+</div>
 
 </body>
 </html>
