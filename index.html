@@ -1,0 +1,2610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Mercy Revival — A forgotten American story, slowly coming back to life." />
+<title>Mercy Revival</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=Special+Elite&family=Rye&family=Inter:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   MERCY REVIVAL  v3
+   Photo-driven · cinematic · always-rich
+   ========================================================= */
+
+:root {
+  --burnt-orange:   #c25a2b;
+  --dusty-amber:    #d4a256;
+  --deep-charcoal:  #14110f;
+  --darker:         #0a0807;
+  --washed-denim:   #5a7a8c;
+  --sepia:          #c9a679;
+  --ember:          #f5904c;
+  --bone:           #e8dcc4;
+  --blood:          #a8232b;
+
+  --serif:   'Cormorant Garamond', 'Times New Roman', serif;
+  --display: 'Rye', 'Special Elite', serif;
+  --type:    'Special Elite', 'Courier New', monospace;
+  --sans:    'Inter', system-ui, sans-serif;
+  --headline:'Bebas Neue', 'Cormorant Garamond', serif;
+
+  --ease-cinema: cubic-bezier(.16,.84,.16,1);
+  --ease-thunder: cubic-bezier(.7,.0,.2,1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { background: var(--darker); color: var(--bone); font-family: var(--sans); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+body { line-height: 1.6; }
+img { max-width:100%; display:block; }
+::selection { background: var(--ember); color: var(--darker); }
+a { color: inherit; text-decoration: none; }
+
+/* =========================================================
+   GLOBAL OVERLAYS
+   ========================================================= */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  width: 200%; height: 200%;
+  z-index: 9000;
+  opacity: .12;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  animation: grain 12s steps(10) infinite;
+}
+@keyframes grain {
+  0%,100% { transform: translate(0,0); }
+  10% { transform: translate(-5%,-10%); }
+  20% { transform: translate(-15%,5%); }
+  30% { transform: translate(7%,-25%); }
+  40% { transform: translate(-5%,25%); }
+  50% { transform: translate(-15%,10%); }
+  60% { transform: translate(15%,0); }
+  70% { transform: translate(0,15%); }
+  80% { transform: translate(3%,35%); }
+  90% { transform: translate(-10%,10%); }
+}
+
+.rain-canvas {
+  position: fixed; inset: 0; z-index: 8500;
+  pointer-events: none;
+  opacity: .55;
+  mix-blend-mode: screen;
+}
+
+.lightning-flash {
+  pointer-events: none;
+  position: fixed; inset: 0;
+  z-index: 9100;
+  background: rgba(255,255,255,0);
+  mix-blend-mode: screen;
+}
+.lightning-bolt {
+  pointer-events: none;
+  position: fixed; inset: 0;
+  z-index: 9050;
+  width: 100%; height: 100%;
+  opacity: 0;
+}
+.lightning-bolt path {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 22px rgba(245,144,76,.7));
+}
+
+.vignette {
+  pointer-events:none;
+  position:fixed; inset:0;
+  z-index:7500;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.65) 100%);
+}
+
+@keyframes shake {
+  0%,100% { transform: translate(0,0); }
+  20% { transform: translate(-3px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-2px, 3px); }
+  80% { transform: translate(3px, -1px); }
+}
+body.thunder { animation: shake .55s var(--ease-thunder); }
+
+/* =========================================================
+   CURSOR
+   ========================================================= */
+.cursor {
+  position: fixed;
+  width: 28px; height: 28px;
+  border: 1px solid rgba(245,144,76,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .4s var(--ease-cinema), height .4s var(--ease-cinema), background .4s, border-color .4s;
+  mix-blend-mode: difference;
+}
+.cursor.active {
+  width: 64px; height: 64px;
+  background: rgba(245,144,76,0.18);
+  border-color: rgba(245,144,76,0.85);
+}
+.cursor-dot {
+  position:fixed;
+  width:4px; height:4px;
+  background: var(--ember);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  transform: translate(-50%,-50%);
+}
+@media (max-width: 900px) { .cursor, .cursor-dot { display:none; } }
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 6000;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+.nav-mark {
+  font-family: var(--display);
+  letter-spacing: .25em;
+  font-size: 13px;
+  color: var(--bone);
+  text-transform: uppercase;
+  pointer-events: auto;
+}
+.nav-acts {
+  font-family: var(--type);
+  font-size: 11px;
+  color: var(--bone);
+  letter-spacing: .35em;
+  pointer-events: auto;
+  display:flex;
+  gap: 24px;
+}
+.nav-acts a { opacity: .55; transition: opacity .8s var(--ease-cinema); }
+.nav-acts a:hover, .nav-acts a.active { opacity: 1; }
+.nav-acts a.active::after {
+  content:''; display:block; height:1px; background: var(--ember); margin-top: 4px;
+}
+@media (max-width: 720px) {
+  .nav { padding: 18px 22px; }
+  .nav-acts { display:none; }
+}
+
+.progress-rail {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 240px;
+  background: rgba(232,220,196,.12);
+  z-index: 6000;
+}
+.progress-rail .bar {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 0;
+  background: var(--ember);
+}
+.progress-rail .label {
+  position: absolute;
+  right: 16px; top: 0;
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .3em;
+  color: var(--bone);
+  white-space: nowrap;
+  transform: rotate(-90deg) translateX(-100%);
+  transform-origin: top right;
+  opacity: .55;
+}
+@media (max-width: 900px){ .progress-rail { display:none; } }
+
+/* =========================================================
+   GENERIC SECTIONS
+   ========================================================= */
+section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.act { min-height: 100vh; }
+.act-label {
+  position: absolute;
+  top: 36px; left: 40px;
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .4em;
+  color: var(--ember);
+  z-index: 10;
+}
+.act-label .num {
+  display:inline-block;
+  margin-right: 16px;
+  padding-right: 16px;
+  border-right: 1px solid rgba(245,144,76,0.3);
+}
+
+/* Background photo helper */
+.bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(.55) saturate(.85);
+  transform: scale(1.06);
+  transition: transform 4s var(--ease-cinema);
+  will-change: transform;
+}
+.bg-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* =========================================================
+   COVER  —  3D PARALLAX STAGE (Chad Taylor's Mercy Revival)
+   ========================================================= */
+.cover {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #0a0807;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+}
+.hero-3d {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.6s var(--ease-cinema);
+}
+.depth {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* deepest — texture/atmosphere */
+.depth-bg {
+  transform: translateZ(-500px) scale(1.6);
+  background:
+    radial-gradient(ellipse at 50% 50%, #1a0d08 0%, #0a0807 65%),
+    repeating-linear-gradient(45deg, transparent 0, transparent 6px, rgba(245,144,76,.025) 6px, rgba(245,144,76,.025) 12px);
+}
+.depth-bg::after {
+  content:'';
+  position:absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(245,144,76,.18), transparent 35%),
+    radial-gradient(circle at 80% 78%, rgba(168,35,43,.1), transparent 40%);
+}
+
+/* mid — band photo */
+.depth-band {
+  transform: translateZ(-180px) scale(1.22);
+  animation: bandBreathe 18s ease-in-out infinite alternate;
+}
+@keyframes bandBreathe {
+  0%   { transform: translateZ(-180px) scale(1.22) translate(0, 0); }
+  100% { transform: translateZ(-180px) scale(1.27) translate(-1%, -.5%); }
+}
+.depth-band-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.92) contrast(1.05) saturate(1.08);
+}
+.depth-band::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(10,8,7,.05) 0%, rgba(10,8,7,.6) 100%),
+    radial-gradient(ellipse at 50% 60%, transparent 30%, rgba(10,8,7,.55) 80%);
+  pointer-events:none;
+}
+
+/* forward — logo */
+.depth-logo {
+  transform: translateZ(140px) scale(.88);
+}
+.depth-logo-img {
+  max-width: min(880px, 80vw);
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 28px 60px rgba(0,0,0,.7)) drop-shadow(0 0 40px rgba(245,144,76,.15));
+  animation: logoFloat 7s ease-in-out infinite alternate;
+}
+@keyframes logoFloat {
+  0%   { transform: translateY(0) rotate(-.2deg); }
+  100% { transform: translateY(-6px) rotate(.2deg); }
+}
+
+/* edges/grain forward layer */
+.depth-frame {
+  transform: translateZ(220px);
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(10,8,7,.65) 0%, transparent 12%, transparent 88%, rgba(10,8,7,.65) 100%),
+    linear-gradient(180deg, rgba(10,8,7,.55) 0%, transparent 15%, transparent 85%, rgba(10,8,7,.7) 100%);
+}
+
+/* hero meta */
+.cover-meta {
+  position: absolute;
+  bottom: 36px;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .45em;
+  color: var(--bone);
+  opacity: .55;
+  z-index: 100;
+  pointer-events: none;
+}
+.cover-meta span:nth-child(2){ color: var(--ember); opacity: .9; }
+.cover-scrollhint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .5em;
+  color: var(--bone);
+  opacity: .8;
+  z-index: 100;
+  text-align: center;
+  pointer-events: none;
+}
+.cover-scrollhint::after {
+  content:'';
+  display: block;
+  width: 1px;
+  height: 42px;
+  background: linear-gradient(to bottom, var(--bone), transparent);
+  margin: 12px auto 0;
+  animation: drip 3.4s ease-in-out infinite;
+}
+@keyframes drip {
+  0%,100% { opacity:.3; transform:scaleY(.5); transform-origin:top; }
+  50% { opacity:1; transform:scaleY(1); }
+}
+
+.glitch { position: relative; display: inline-block; }
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute; inset: 0;
+  pointer-events: none; opacity: 0;
+}
+.glitch::before { color: var(--ember); transform: translateX(-2px); mix-blend-mode: screen; }
+.glitch::after  { color: var(--washed-denim); transform: translateX(2px); mix-blend-mode: screen; }
+.glitch.active::before, .glitch.active::after { animation: glitch-anim 1.6s steps(2) 1; }
+@keyframes glitch-anim {
+  0%,100% { opacity:0; transform: translateX(0); }
+  10% { opacity:.7; transform: translateX(-3px); }
+  20% { opacity:.7; transform: translateX(3px); }
+  30% { opacity:0; }
+  50% { opacity:.6; transform: translateX(-5px); }
+  70% { opacity:0; }
+}
+
+/* =========================================================
+   ACT I — THE BREAK   (full-bleed scream photo)
+   ========================================================= */
+.act-break {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.act-break .bg-photo {
+  background-image: url('images/DSC07123.jpg');
+  background-position: center 30%;
+  filter: brightness(.55) saturate(.7) contrast(1.15);
+}
+.act-break .bg-tint {
+  background:
+    radial-gradient(ellipse at 80% 40%, rgba(245,144,76,0.22), transparent 50%),
+    linear-gradient(90deg, rgba(10,8,7,.92) 0%, rgba(10,8,7,.55) 45%, rgba(10,8,7,.2) 75%, rgba(10,8,7,.6) 100%);
+}
+.break-content {
+  position: relative;
+  z-index: 5;
+  padding: 0 6vw;
+  max-width: 900px;
+}
+.break-content .small {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .5em;
+  color: var(--ember);
+  margin-bottom: 28px;
+}
+.break-content h2 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(40px, 6.5vw, 96px);
+  font-weight: 500;
+  line-height: 1.02;
+  color: var(--bone);
+  text-shadow: 0 4px 30px rgba(0,0,0,.7);
+  margin-bottom: 32px;
+}
+.break-content h2 em { color: var(--ember); font-style: italic; }
+.break-content .lyric {
+  font-family: var(--type);
+  font-size: 12px;
+  letter-spacing: .35em;
+  color: var(--burnt-orange);
+}
+.neon-sign {
+  position: absolute;
+  top: 28%;
+  right: 6%;
+  font-family: var(--display);
+  font-size: clamp(28px, 3.5vw, 48px);
+  color: var(--ember);
+  text-shadow:
+    0 0 6px var(--ember),
+    0 0 18px rgba(245,144,76,0.6),
+    0 0 36px rgba(245,144,76,0.4);
+  letter-spacing: .12em;
+  z-index: 4;
+  transform: rotate(-2deg);
+  animation: neon-flicker 5s infinite;
+}
+@keyframes neon-flicker {
+  0%,18%,22%,25%,53%,57%,100% {
+    opacity:1;
+    text-shadow: 0 0 6px var(--ember), 0 0 18px rgba(245,144,76,0.6), 0 0 36px rgba(245,144,76,0.4);
+  }
+  20%,24%,55% { opacity:.2; text-shadow: none; }
+}
+.cracks {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+.cracks path {
+  fill: none;
+  stroke: rgba(245,144,76,0.55);
+  stroke-width: 1;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(245,144,76,0.5));
+}
+
+/* Pull-quote on right side */
+.break-quote {
+  position: absolute;
+  right: 6vw;
+  bottom: 14%;
+  max-width: 280px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--bone);
+  opacity: .82;
+  z-index: 5;
+  border-left: 1px solid rgba(245,144,76,0.5);
+  padding-left: 18px;
+}
+@media (max-width: 900px){ .break-quote { display:none; } }
+
+/* =========================================================
+   ACT II — THE ROAD  (band photo + nightscape)
+   ========================================================= */
+.act-road {
+  display: flex;
+  align-items: center;
+}
+.act-road .bg-photo {
+  background-image: url('images/DSC07191.jpg');
+  filter: brightness(.45) saturate(.4) contrast(1.05) hue-rotate(-10deg);
+}
+.act-road .bg-tint {
+  background:
+    radial-gradient(circle at 22% 22%, rgba(232,220,196,.25), transparent 35%),
+    linear-gradient(180deg, rgba(13,20,25,.6) 0%, rgba(13,20,25,.85) 100%);
+}
+.road-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  text-align: center;
+  padding: 0 24px;
+}
+.road-content h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 6vw, 88px);
+  color: var(--bone);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: .015em;
+  max-width: 1100px;
+  margin: 0 auto;
+  line-height: 1.08;
+  text-shadow: 0 4px 30px rgba(0,0,0,.7);
+}
+.road-content h2 em { color: var(--ember); font-weight: 500; }
+
+.lyric-fragments {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.lyric-fragments span {
+  position: absolute;
+  font-family: var(--type);
+  font-size: 13px;
+  letter-spacing: .25em;
+  color: var(--sepia);
+  white-space: nowrap;
+  opacity: .8;
+}
+.lyric-fragments span:nth-child(1){ top:18%; left:6%; }
+.lyric-fragments span:nth-child(2){ top:28%; right:8%; }
+.lyric-fragments span:nth-child(3){ bottom:24%; left:12%; }
+.lyric-fragments span:nth-child(4){ bottom:14%; right:14%; }
+
+.poles {
+  position: absolute;
+  bottom: 8%;
+  left:0; right:0;
+  height: 280px;
+  pointer-events: none;
+  z-index: 2;
+}
+.pole {
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 220px;
+  background: linear-gradient(180deg, transparent, rgba(232,220,196,0.55));
+}
+.pole::before {
+  content:'';
+  position:absolute;
+  top: 30px; left: -30px; right: -30px;
+  height: 2px;
+  background: rgba(232,220,196,0.45);
+}
+.pole::after {
+  content:'';
+  position:absolute;
+  top: 14px; left: -8px;
+  width: 16px; height: 16px;
+  background: rgba(232,220,196,0.4);
+  border-radius: 50%;
+  filter: blur(4px);
+}
+.motel-sign {
+  position: absolute;
+  top: 12%;
+  right: 4%;
+  font-family: var(--display);
+  font-size: clamp(48px, 7vw, 104px);
+  color: var(--burnt-orange);
+  text-shadow: 0 0 16px rgba(194,90,43,0.7), 0 0 36px rgba(194,90,43,0.4);
+  opacity: .65;
+  letter-spacing: .05em;
+  transform: rotate(-3deg);
+  z-index: 4;
+}
+
+.road-stats {
+  position: absolute;
+  bottom: 6%;
+  left: 0; right: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .45em;
+  color: var(--bone);
+  opacity: .65;
+}
+.road-stats div span { display:block; color: var(--ember); font-size: 22px; margin-bottom: 4px; letter-spacing:.05em; }
+@media (max-width: 720px){
+  .road-stats { gap: 36px; flex-wrap: wrap; }
+}
+
+/* =========================================================
+   ACT III — THE RECKONING  (split layout)
+   ========================================================= */
+.act-reckon {
+  background: var(--darker);
+  padding: 100px 0 120px;
+}
+.reckon-grid {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+@media (max-width: 900px){ .reckon-grid { grid-template-columns: 1fr; } }
+
+.reckon-photo {
+  position: relative;
+  background:
+    linear-gradient(135deg, rgba(10,8,7,.6) 0%, transparent 60%),
+    url('images/DSC07121.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 70vh;
+}
+.reckon-photo::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 60% 40%, rgba(245,144,76,.18), transparent 55%);
+  mix-blend-mode: screen;
+}
+.reckon-text {
+  padding: 80px 8vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.reckon-text .label {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .55em;
+  color: var(--ember);
+  margin-bottom: 24px;
+}
+.reckon-text h2 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(32px, 4.5vw, 64px);
+  font-weight: 500;
+  color: var(--bone);
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+.reckon-text h2 em { color: var(--ember); font-style: italic; }
+.reckon-text .source {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .35em;
+  color: var(--sepia);
+  opacity: .7;
+  margin-bottom: 48px;
+}
+.featured-track {
+  padding: 28px;
+  border: 1px solid rgba(245,144,76,0.25);
+  background: rgba(20,17,15,0.85);
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+.featured-track::before {
+  content: 'FEATURED';
+  position: absolute;
+  top: -10px; left: 22px;
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .4em;
+  background: var(--darker);
+  color: var(--ember);
+  padding: 2px 10px;
+}
+.featured-track h3 {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-style: italic;
+  color: var(--bone);
+  margin-bottom: 18px;
+}
+.samply-embed {
+  width: 100%;
+  border: 0;
+  display: block;
+  background: var(--darker);
+}
+
+/* =========================================================
+   ACT IV — THE SPARK  (piano/lantern duo)
+   ========================================================= */
+.act-spark {
+  display: flex;
+  align-items: center;
+}
+.act-spark .bg-photo {
+  background-image: url('images/DSC07148.jpg');
+  background-position: center;
+  filter: brightness(.7) saturate(1.1) contrast(1.05);
+}
+.act-spark .bg-tint {
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(245,144,76,0.32), transparent 50%),
+    linear-gradient(180deg, rgba(26,13,8,.45) 0%, rgba(13,8,5,.85) 100%);
+}
+.spark-stage {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 80px;
+  align-items: center;
+}
+@media (max-width: 900px){
+  .spark-stage { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+}
+.lantern-svg {
+  width: 200px;
+  filter: drop-shadow(0 0 30px rgba(245,144,76,0.55));
+}
+.spark-stage h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.5vw, 88px);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--bone);
+  line-height: 1.02;
+  text-shadow: 0 4px 30px rgba(0,0,0,.6);
+}
+.spark-stage h2 em { color: var(--ember); font-style: italic; }
+.god-rays {
+  position: absolute;
+  top: -10%; left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 70%;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    conic-gradient(from 200deg at 50% 0%,
+      transparent 0deg, rgba(245,144,76,0.10) 25deg,
+      transparent 50deg, rgba(245,144,76,0.07) 75deg,
+      transparent 100deg, rgba(245,144,76,0.10) 125deg,
+      transparent 160deg);
+  filter: blur(20px);
+  mix-blend-mode: screen;
+}
+
+/* =========================================================
+   OPERATION SPIRIT
+   ========================================================= */
+.act-game {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(168,35,43,.18), transparent 55%),
+    linear-gradient(180deg, #1a0d08 0%, #0a0807 100%);
+  padding: 120px 24px 120px;
+  position: relative;
+}
+.game-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+.game-kicker {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .55em;
+  color: var(--blood);
+  margin-bottom: 16px;
+}
+.game-title {
+  font-family: var(--display);
+  font-size: clamp(48px, 8vw, 132px);
+  color: var(--bone);
+  letter-spacing: .04em;
+  line-height: .9;
+  margin-bottom: 22px;
+  text-shadow: 0 4px 30px rgba(0,0,0,.6);
+}
+.game-title em {
+  color: var(--blood);
+  font-style: normal;
+  text-shadow: 0 0 18px rgba(168,35,43,.5);
+}
+.game-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.7vw, 21px);
+  color: var(--sepia);
+  opacity: .9;
+  max-width: 660px;
+  margin: 0 auto 40px;
+}
+.game-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #0a0807;
+  border: 1px solid rgba(245,144,76,.22);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.55),
+    inset 0 0 80px rgba(0,0,0,.6);
+  overflow: hidden;
+}
+#gameCanvas { display:block; width:100%; height:100%; }
+.game-hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 18px;
+  font-family: var(--type);
+  font-size: 12px;
+  letter-spacing: .3em;
+  color: var(--bone);
+  pointer-events: none;
+  text-shadow: 0 1px 4px rgba(0,0,0,.6);
+  z-index: 3;
+}
+.hud-mercy { color: var(--ember); }
+.hud-lives span { color: var(--blood); }
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,8,7,.78);
+  z-index: 4;
+  text-align: center;
+  padding: 24px;
+  backdrop-filter: blur(6px);
+}
+.game-overlay.hidden { display: none; }
+.game-overlay h3 {
+  font-family: var(--display);
+  font-size: clamp(28px, 5vw, 60px);
+  color: var(--bone);
+  letter-spacing: .03em;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.game-overlay h3 em { color: var(--blood); font-style: normal; }
+.game-overlay p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(14px, 1.4vw, 18px);
+  color: var(--sepia);
+  max-width: 520px;
+  margin-bottom: 24px;
+}
+.game-btn {
+  font-family: var(--type);
+  font-size: 12px;
+  letter-spacing: .45em;
+  color: var(--darker);
+  background: var(--ember);
+  border: 0;
+  padding: 14px 32px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: transform .4s var(--ease-cinema), background .4s, box-shadow .4s;
+}
+.game-btn:hover {
+  background: var(--bone);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(245,144,76,.35);
+}
+.game-controls {
+  margin-top: 14px;
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .3em;
+  color: var(--bone);
+  opacity: .55;
+}
+
+/* =========================================================
+   ACT V — THE REVIVAL  (sun + giant photo grid)
+   ========================================================= */
+.act-revival {
+  background: linear-gradient(180deg, #1a0d08 0%, #6b4824 35%, #c2814a 70%, #e8c585 100%);
+  padding: 140px 0 100px;
+}
+.sun-svg {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  pointer-events: none;
+  z-index: 1;
+}
+.fields {
+  position: absolute;
+  bottom: 0; left:0; right:0;
+  height: 28%;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, transparent, rgba(75,50,28,0.7) 50%, rgba(75,50,28,0.95)),
+    repeating-linear-gradient(90deg,
+      rgba(232,197,133,0.2) 0px,
+      rgba(232,197,133,0.2) 2px,
+      transparent 2px,
+      transparent 6px);
+}
+.revival-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1320px;
+  padding: 80px 32px 0;
+  text-align: center;
+  margin: 0 auto;
+}
+.revival-content .micro {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .55em;
+  color: var(--darker);
+  opacity: .7;
+  margin-bottom: 16px;
+}
+.revival-content h2 {
+  font-family: var(--display);
+  font-size: clamp(56px, 11vw, 200px);
+  font-weight: 400;
+  color: var(--darker);
+  line-height: .85;
+  letter-spacing: -.005em;
+  margin-bottom: 24px;
+  text-shadow: 0 4px 30px rgba(232,197,133,0.4);
+}
+.revival-content .sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(18px, 2.2vw, 28px);
+  color: var(--darker);
+  opacity: .85;
+  max-width: 700px;
+  margin: 0 auto 80px;
+}
+.band-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  max-width: 1280px;
+  margin: 0 auto 80px;
+}
+.band-grid .photo {
+  position: relative;
+  overflow: hidden;
+  background: var(--darker);
+  filter: contrast(1.05);
+  transition: transform .9s var(--ease-cinema), filter .9s, box-shadow .9s;
+  box-shadow: 0 12px 30px rgba(20,8,2,.4);
+}
+.band-grid .photo img {
+  width:100%; height:100%;
+  object-fit: cover;
+  transition: transform 1.8s var(--ease-cinema);
+}
+.band-grid .photo:hover { filter: contrast(1.15) brightness(1.05); box-shadow: 0 22px 50px rgba(20,8,2,.5); }
+.band-grid .photo:hover img { transform: scale(1.06); }
+.band-grid .p1 { grid-column: span 5; aspect-ratio: 4/5; }
+.band-grid .p2 { grid-column: span 7; aspect-ratio: 16/10; }
+.band-grid .p3 { grid-column: span 4; aspect-ratio: 3/4; }
+.band-grid .p4 { grid-column: span 4; aspect-ratio: 3/4; }
+.band-grid .p5 { grid-column: span 4; aspect-ratio: 3/4; }
+.band-grid .p6 { grid-column: span 8; aspect-ratio: 16/9; }
+.band-grid .p7 { grid-column: span 4; aspect-ratio: 1/1; }
+@media (max-width: 720px) {
+  .band-grid { grid-template-columns: repeat(6,1fr); }
+  .band-grid .p1, .band-grid .p2 { grid-column: span 6; }
+  .band-grid .p3, .band-grid .p4, .band-grid .p5 { grid-column: span 3; }
+  .band-grid .p6 { grid-column: span 6; }
+  .band-grid .p7 { grid-column: span 6; }
+}
+
+/* =========================================================
+   MUSIC SECTION  —  TURNTABLE + REVIVAL CATALOG
+   ========================================================= */
+.music-section {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(245,144,76,.10), transparent 50%),
+    linear-gradient(180deg, #1a0d08 0%, #2a1a0e 50%, #14110f 100%);
+  padding: 140px 32px 160px;
+  overflow: hidden;
+  color: var(--bone);
+}
+.music-overhead {
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto 72px;
+}
+.music-overhead .micro {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .55em;
+  color: var(--ember);
+  margin-bottom: 18px;
+}
+.music-overhead h3 {
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 88px);
+  color: var(--bone);
+  line-height: .95;
+  letter-spacing: -.005em;
+  margin-bottom: 22px;
+}
+.music-overhead p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.7vw, 21px);
+  color: var(--sepia);
+  opacity: .9;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.music-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+@media (max-width: 900px){ .music-inner { grid-template-columns: 1fr; gap: 48px; } }
+
+/* Turntable */
+.turntable {
+  position: relative;
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,.55));
+}
+.turntable-svg { width: 100%; height: auto; display: block; }
+.record-disc {
+  transform-origin: 240px 260px;
+  animation: turn 4.8s linear infinite;
+}
+@keyframes turn { to { transform: rotate(360deg); } }
+.tonearm {
+  transform-origin: 490px 140px;
+  transform: rotate(-2deg);
+  animation: tone 14s ease-in-out infinite alternate;
+}
+@keyframes tone {
+  0%   { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* Catalog ledger */
+.catalog {
+  background: rgba(10,8,7,.72);
+  border: 1px solid rgba(245,144,76,.18);
+  position: relative;
+}
+.catalog::before {
+  content: 'REVIVAL CATALOG · LEDGER';
+  position: absolute;
+  top: -10px; left: 22px;
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .4em;
+  background: #14110f;
+  color: var(--ember);
+  padding: 2px 10px;
+}
+.catalog-head {
+  display: grid;
+  grid-template-columns: 2fr 1.4fr 1fr 1fr;
+  gap: 12px;
+  padding: 22px 24px 14px;
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .35em;
+  color: var(--sepia);
+  border-bottom: 1px dashed rgba(245,144,76,.25);
+}
+.catalog-scroll {
+  height: 360px;
+  overflow: hidden;
+  position: relative;
+}
+.catalog-scroll::before, .catalog-scroll::after {
+  content:'';
+  position: absolute;
+  left:0; right:0;
+  height: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+.catalog-scroll::before { top: 0; background: linear-gradient(to bottom, rgba(10,8,7,.72), transparent); }
+.catalog-scroll::after  { bottom: 0; background: linear-gradient(to top, rgba(10,8,7,.72), transparent); }
+.catalog-track {
+  animation: ticker 38s linear infinite;
+}
+.catalog-track:hover { animation-play-state: paused; }
+@keyframes ticker {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1.4fr 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px dashed rgba(232,220,196,.08);
+  font-family: var(--type);
+  font-size: 12px;
+}
+.row .title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  color: var(--bone);
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+.row .og {
+  color: var(--sepia);
+  letter-spacing: .12em;
+  opacity: .85;
+}
+.row .streams {
+  font-family: var(--display);
+  font-size: 22px;
+  color: var(--ember);
+  letter-spacing: .02em;
+  line-height: 1;
+}
+.row .streams small {
+  font-size: 11px;
+  letter-spacing: .25em;
+  color: var(--sepia);
+  margin-left: 4px;
+  opacity: .7;
+}
+.row .status {
+  display: inline-block;
+  padding: 5px 10px;
+  background: rgba(245,144,76,.15);
+  border: 1px solid rgba(245,144,76,.4);
+  color: var(--ember);
+  letter-spacing: .25em;
+  font-size: 9px;
+  text-align: center;
+  justify-self: start;
+}
+.row .status.tracking { background: rgba(168,35,43,.15); border-color: rgba(168,35,43,.45); color: #d23139; }
+
+/* Hero row — Lightning Crashes */
+.catalog-hero {
+  position: relative;
+  padding: 26px 24px;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(245,144,76,.18), transparent 65%),
+    linear-gradient(90deg, rgba(168,35,43,.08), rgba(245,144,76,.04));
+  border-bottom: 1px solid rgba(245,144,76,.35);
+  overflow: hidden;
+}
+.catalog-hero::after {
+  content:'';
+  position: absolute;
+  top:0; right:0; bottom:0;
+  width: 4px;
+  background: linear-gradient(180deg, transparent, var(--ember), transparent);
+  animation: heroPulse 3s ease-in-out infinite;
+}
+@keyframes heroPulse {
+  0%,100% { opacity: .4; }
+  50%     { opacity: 1; }
+}
+.catalog-hero-tag {
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .5em;
+  color: var(--ember);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.catalog-hero-tag .bolt {
+  display: inline-block;
+  font-size: 14px;
+  filter: drop-shadow(0 0 4px var(--ember));
+  animation: heroPulse 1.6s ease-in-out infinite;
+}
+.catalog-hero-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.4fr 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.catalog-hero-title {
+  font-family: var(--display);
+  font-size: 28px;
+  color: var(--bone);
+  line-height: .98;
+  letter-spacing: .005em;
+}
+.catalog-hero-og {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .15em;
+  color: var(--sepia);
+}
+.catalog-hero-streams {
+  font-family: var(--display);
+  font-size: 32px;
+  color: var(--ember);
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(245,144,76,.4);
+}
+.catalog-hero-streams small {
+  font-size: 12px;
+  letter-spacing: .25em;
+  margin-left: 4px;
+  opacity: .75;
+}
+.catalog-hero-status {
+  display: inline-block;
+  padding: 7px 12px;
+  background: var(--ember);
+  color: var(--darker);
+  letter-spacing: .3em;
+  font-family: var(--type);
+  font-size: 9px;
+  text-align: center;
+  justify-self: start;
+  box-shadow: 0 0 18px rgba(245,144,76,.4);
+}
+@media (max-width: 720px){
+  .catalog-hero-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+  .catalog-hero-grid > .catalog-hero-og { display:none; }
+}
+
+.catalog-total {
+  border-top: 1px solid rgba(245,144,76,.25);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+.catalog-total .lbl {
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .4em;
+  color: var(--sepia);
+  opacity: .8;
+}
+.catalog-total .num {
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 46px);
+  color: var(--ember);
+  line-height: 1;
+  letter-spacing: -.005em;
+}
+.catalog-total .num em {
+  color: var(--bone);
+  font-style: normal;
+  font-size: .55em;
+  letter-spacing: .12em;
+  margin-left: 8px;
+}
+.catalog-total .tag {
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .35em;
+  color: var(--blood);
+  text-align: right;
+}
+@media (max-width: 720px){
+  .catalog-head, .row { grid-template-columns: 1.4fr 1fr 1fr; }
+  .catalog-head span:nth-child(2), .row .og { display:none; }
+  .catalog-total { grid-template-columns: 1fr; gap: 12px; text-align: left; }
+  .catalog-total .tag { text-align: left; }
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  background: var(--darker);
+  padding: 80px 32px 48px;
+  text-align: center;
+}
+.footer .mark {
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 88px);
+  color: var(--burnt-orange);
+  letter-spacing: .03em;
+  opacity: .8;
+  margin-bottom: 32px;
+}
+.footer .tag {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--sepia);
+  opacity: .7;
+  max-width: 520px;
+  margin: 0 auto 56px;
+}
+.footer .links {
+  display:flex;
+  justify-content:center;
+  gap: 48px;
+  flex-wrap: wrap;
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .35em;
+  margin-bottom: 56px;
+}
+.footer .links a {
+  color: var(--bone);
+  opacity: .55;
+  transition: opacity .8s var(--ease-cinema), color .8s;
+}
+.footer .links a:hover { opacity:1; color: var(--ember); }
+.footer .copy {
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .4em;
+  color: var(--bone);
+  opacity: .35;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+  .vinyl, .grain, .rain-canvas, .lightning-bolt { display:none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Global overlays -->
+<canvas class="rain-canvas" id="rainCanvas"></canvas>
+<div class="grain"></div>
+<svg class="lightning-bolt" id="boltSvg" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
+  <path id="boltPath" d=""/>
+</svg>
+<div class="lightning-flash" id="flash"></div>
+<div class="vignette"></div>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-mark">M / R</div>
+  <div class="nav-acts">
+    <a href="#act-i">I · Break</a>
+    <a href="#act-ii">II · Road</a>
+    <a href="#act-iii">III · Reckon</a>
+    <a href="#act-iv">IV · Spark</a>
+    <a href="#operation">Operation</a>
+    <a href="#act-v">V · Revival</a>
+  </div>
+</nav>
+
+<div class="progress-rail"><div class="bar" id="progressBar"></div><div class="label">M E R C Y</div></div>
+
+
+<!-- =====================================================
+     COVER — full-bleed band photo, immediate impact
+     ===================================================== -->
+<section class="cover" id="cover">
+  <div class="hero-3d" id="hero3d">
+    <!-- DEEPEST: textured backdrop -->
+    <div class="depth depth-bg" data-depth="-500"></div>
+
+    <!-- MID: band photograph -->
+    <div class="depth depth-band" data-depth="-180">
+      <img class="depth-band-img" src="images/band-photo.png" alt="Chad Taylor's Mercy Revival — full band photograph"/>
+    </div>
+
+    <!-- FORWARD: logo -->
+    <div class="depth depth-logo" data-depth="140">
+      <img class="depth-logo-img" src="images/logo.png" alt="Chad Taylor's Mercy Revival — logo"/>
+    </div>
+
+    <!-- TOP: frame edges + grain -->
+    <div class="depth depth-frame" data-depth="220"></div>
+  </div>
+
+  <div class="cover-meta">
+    <span>CHAD TAYLOR'S MERCY REVIVAL</span>
+    <span>VOLUME I · NIGHT 1</span>
+    <span>FIVE VOICES · ONE LONG SHADOW</span>
+  </div>
+  <div class="cover-scrollhint">SCROLL</div>
+</section>
+
+
+<!-- =====================================================
+     ACT I — THE BREAK
+     ===================================================== -->
+<section class="act act-break" id="act-i">
+  <div class="bg-photo"></div>
+  <div class="bg-tint"></div>
+
+  <div class="act-label"><span class="num">I</span>THE BREAK</div>
+  <div class="neon-sign">M E R C Y</div>
+
+  <svg class="cracks" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
+    <path id="crack1" d="M 0,400 L 380,420 L 600,300 L 820,500 L 1100,360 L 1340,520 L 1600,460" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+    <path id="crack2" d="M 200,0 L 220,180 L 160,320 L 280,520 L 240,720 L 360,900" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+    <path id="crack3" d="M 1400,0 L 1380,200 L 1500,400 L 1420,640 L 1480,900" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+    <path id="crack4" d="M 600,900 L 620,720 L 540,600 L 680,460 L 540,300 L 620,140" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+  </svg>
+
+  <div class="break-content">
+    <div class="small">CHAPTER ONE · THE FIRE</div>
+    <h2>Everything we built<br/><em>caught fire</em>,<br/>and we stood there<br/>watching it burn.</h2>
+    <div class="lyric">— OPENING VERSE</div>
+  </div>
+
+  <div class="break-quote">
+    "It wasn't the loss that broke us. It was how quiet the world got afterward."
+  </div>
+</section>
+
+
+<!-- =====================================================
+     ACT II — THE ROAD
+     ===================================================== -->
+<section class="act act-road" id="act-ii">
+  <div class="bg-photo"></div>
+  <div class="bg-tint"></div>
+
+  <div class="act-label"><span class="num">II</span>THE ROAD</div>
+  <div class="motel-sign">VACANCY</div>
+
+  <div class="poles" id="poleLayer"></div>
+
+  <div class="lyric-fragments">
+    <span>I been chasing&hellip;</span>
+    <span>&hellip;a song I never learned</span>
+    <span>the road don't end</span>
+    <span>it just forgets your name</span>
+  </div>
+
+  <div class="road-content">
+    <h2>
+      Somewhere between<br/>
+      <em>the last verse</em><br/>
+      and the next town.
+    </h2>
+  </div>
+
+  <div class="road-stats">
+    <div><span>1,847</span>MILES</div>
+    <div><span>23</span>TOWNS</div>
+    <div><span>0</span>HEADED HOME</div>
+  </div>
+</section>
+
+
+<!-- =====================================================
+     ACT III — THE RECKONING
+     ===================================================== -->
+<section class="act-reckon" id="act-iii">
+  <div class="reckon-grid">
+    <div class="reckon-photo"></div>
+    <div class="reckon-text">
+      <div class="act-label" style="position:static; margin-bottom:48px;"><span class="num">III</span>THE RECKONING</div>
+      <div class="label">THE STORM ITSELF · FROM "THROWING COPPER"</div>
+      <h2>And the angel<br/>opens her eyes —<br/><em>lightning crashes</em>.</h2>
+      <div class="source">— LIVE · 1994 · REVIVED 2026</div>
+
+      <div class="featured-track">
+        <h3>Lightning Crashes <span style="color:var(--ember);font-style:normal;font-family:var(--type);font-size:11px;letter-spacing:.4em;margin-left:10px;">⚡ FLAGSHIP</span></h3>
+        <iframe
+          class="samply-embed"
+          src="https://samply.app/embed/fbsAr8ExLqeId5Evymhb?color=c25a2b"
+          height="220"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          loading="lazy"
+          title="Mercy Revival — Lightning Crashes"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================
+     ACT IV — THE SPARK
+     ===================================================== -->
+<section class="act act-spark" id="act-iv">
+  <div class="bg-photo"></div>
+  <div class="bg-tint"></div>
+  <div class="god-rays"></div>
+
+  <div class="act-label"><span class="num">IV</span>THE SPARK</div>
+
+  <div class="spark-stage">
+    <svg class="lantern-svg" viewBox="0 0 200 280" aria-hidden="true">
+      <defs>
+        <radialGradient id="flame" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f5e0a0" stop-opacity="1"/>
+          <stop offset="40%" stop-color="#f5904c" stop-opacity=".95"/>
+          <stop offset="100%" stop-color="#c25a2b" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="140" r="80" fill="url(#flame)" opacity="0.85">
+        <animate attributeName="r" values="78;90;78" dur="3.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.65;0.95;0.65" dur="3.4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="100" cy="40" r="14" fill="none" stroke="#c9a679" stroke-width="3"/>
+      <line x1="100" y1="0" x2="100" y2="26" stroke="#c9a679" stroke-width="2"/>
+      <path d="M 70,52 L 130,52 L 122,70 L 78,70 Z" fill="#1a1614" stroke="#c9a679" stroke-width="2"/>
+      <rect x="64" y="74" width="72" height="120" fill="rgba(245,144,76,0.15)" stroke="#c9a679" stroke-width="2"/>
+      <line x1="76" y1="74" x2="76" y2="194" stroke="#c9a679" stroke-width="1.5"/>
+      <line x1="124" y1="74" x2="124" y2="194" stroke="#c9a679" stroke-width="1.5"/>
+      <path d="M 100,170 C 92,150 92,140 96,128 C 92,134 86,128 90,118 C 96,120 102,112 100,100 C 108,108 112,124 110,138 C 116,134 118,142 116,152 C 112,162 104,168 100,170 Z" fill="#f5904c">
+        <animate attributeName="opacity" values="0.9;1;0.85;1" dur="1.2s" repeatCount="indefinite"/>
+      </path>
+      <path d="M 70,198 L 130,198 L 122,216 L 78,216 Z" fill="#1a1614" stroke="#c9a679" stroke-width="2"/>
+    </svg>
+
+    <h2>Someone&nbsp;<em>kept a light burning</em><br/>while the world<br/>was dark.</h2>
+  </div>
+</section>
+
+
+<!-- =====================================================
+     OPERATION SPIRIT
+     ===================================================== -->
+<section class="act-game" id="operation">
+  <div class="game-wrap">
+    <div class="game-kicker">INTERLUDE · A TEST OF MERCY</div>
+    <h2 class="game-title">OPERATION<br/><em>SPIRIT</em></h2>
+    <p class="game-sub">Gather mercy. Outrun the snakes. The revival comes only for those who make it through the long night.</p>
+
+    <div class="game-stage">
+      <canvas id="gameCanvas"></canvas>
+      <div class="game-hud">
+        <div class="hud-mercy">MERCY · <span id="hudScore">0</span> / 200</div>
+        <div class="hud-lives">LIVES · <span id="hudLives">♥ ♥ ♥</span></div>
+      </div>
+      <div class="game-overlay" id="gameOverlay">
+        <h3>OPERATION&nbsp;<em>SPIRIT</em></h3>
+        <p>Move with your <strong>mouse</strong> or arrow keys. Catch the red crosses. Avoid the rattlesnakes. Reach <strong>200 mercy</strong> to trigger the revival.</p>
+        <button class="game-btn" id="gameStart">BEGIN</button>
+        <div class="game-controls">↑ ↓ ← →&nbsp;&nbsp;OR&nbsp;&nbsp;MOUSE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================
+     ACT V — THE REVIVAL
+     ===================================================== -->
+<section class="act-revival" id="act-v">
+  <svg class="sun-svg" viewBox="0 0 800 400" aria-hidden="true">
+    <defs>
+      <radialGradient id="sunCore" cx="50%" cy="100%" r="50%">
+        <stop offset="0%" stop-color="#fff4d9" stop-opacity="1"/>
+        <stop offset="40%" stop-color="#f5b86c" stop-opacity=".95"/>
+        <stop offset="100%" stop-color="#c2814a" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="400" cy="380" rx="380" ry="240" fill="url(#sunCore)"/>
+    <circle cx="400" cy="380" r="120" fill="#fff4d9" opacity="0.95"/>
+  </svg>
+  <div class="fields"></div>
+
+  <div class="revival-content">
+    <div class="micro">ACT V · THE MORNING AFTER</div>
+    <h2>REVIVAL</h2>
+    <p class="sub">The same five voices.<br/>The same broken hymns.<br/>Sung now with the morning behind them.</p>
+
+    <div class="band-grid">
+      <div class="photo p1"><img src="images/DSC07221.jpg" alt="Mercy Revival — full band"/></div>
+      <div class="photo p2"><img src="images/DSC07189.jpg" alt="Mercy Revival in the studio"/></div>
+      <div class="photo p3"><img src="images/DSC07103.jpg" alt="Bassist"/></div>
+      <div class="photo p4"><img src="images/DSC07101.jpg" alt="Guitarist with hollowbody"/></div>
+      <div class="photo p5"><img src="images/DSC07248.jpg" alt="Onstage moment"/></div>
+      <div class="photo p6"><img src="images/DSC07159.jpg" alt="Mercy Revival — wide group portrait"/></div>
+      <div class="photo p7"><img src="images/DSC07257.jpg" alt="Mercy Revival in black and white"/></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================
+     MUSIC SECTION
+     ===================================================== -->
+<section class="music-section" id="music">
+  <div class="music-overhead">
+    <div class="micro">THE REVIVAL CATALOG · THROWING COPPER, RECAST</div>
+    <h3>LIVE wrote them.<br/>We rinsed them clean.</h3>
+    <p>Six songs from York, Pennsylvania's quietest loud band — pulled out of 1991 and 1994, rewired for a country that finally caught up to what they were saying. Lightning Crashes leads. The storm follows.</p>
+  </div>
+
+  <div class="music-inner">
+
+    <!-- TURNTABLE -->
+    <div class="turntable">
+      <svg class="turntable-svg" viewBox="0 0 600 500" aria-hidden="true">
+        <defs>
+          <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5a3220"/>
+            <stop offset="50%" stop-color="#7a4828"/>
+            <stop offset="100%" stop-color="#3a2010"/>
+          </linearGradient>
+          <radialGradient id="platterShine" cx="35%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="rgba(232,220,196,.18)"/>
+            <stop offset="60%" stop-color="rgba(232,220,196,0)"/>
+          </radialGradient>
+          <radialGradient id="labelGrad" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#f5904c"/>
+            <stop offset="60%" stop-color="#c25a2b"/>
+            <stop offset="100%" stop-color="#7a2a14"/>
+          </radialGradient>
+        </defs>
+
+        <!-- wooden plinth -->
+        <rect x="20" y="60" width="560" height="400" rx="14" fill="url(#wood)" stroke="#3a2010" stroke-width="2"/>
+        <rect x="20" y="60" width="560" height="14" rx="14" fill="rgba(255,255,255,.06)"/>
+        <rect x="20" y="446" width="560" height="14" rx="14" fill="rgba(0,0,0,.35)"/>
+
+        <!-- inner well -->
+        <rect x="40" y="84" width="520" height="356" rx="6" fill="#0a0807"/>
+
+        <!-- platter outer rim -->
+        <circle cx="240" cy="262" r="186" fill="#1a1614"/>
+        <circle cx="240" cy="262" r="186" fill="none" stroke="rgba(232,220,196,.12)" stroke-width="1"/>
+        <!-- platter -->
+        <circle cx="240" cy="262" r="180" fill="#0a0807"/>
+
+        <!-- record disc (spinning group) -->
+        <g class="record-disc" id="recordDisc">
+          <circle cx="240" cy="262" r="170" fill="#080605"/>
+          <!-- grooves -->
+          <g stroke="rgba(245,144,76,.07)" stroke-width=".5" fill="none">
+            <circle cx="240" cy="262" r="60"/>
+            <circle cx="240" cy="262" r="72"/>
+            <circle cx="240" cy="262" r="84"/>
+            <circle cx="240" cy="262" r="96"/>
+            <circle cx="240" cy="262" r="108"/>
+            <circle cx="240" cy="262" r="120"/>
+            <circle cx="240" cy="262" r="132"/>
+            <circle cx="240" cy="262" r="144"/>
+            <circle cx="240" cy="262" r="156"/>
+            <circle cx="240" cy="262" r="166"/>
+          </g>
+          <!-- highlight -->
+          <circle cx="240" cy="262" r="170" fill="url(#platterShine)"/>
+          <!-- label -->
+          <circle cx="240" cy="262" r="56" fill="url(#labelGrad)"/>
+          <circle cx="240" cy="262" r="56" fill="none" stroke="rgba(20,8,2,.4)" stroke-width="1"/>
+          <text x="240" y="252" text-anchor="middle" font-family="Rye, serif" font-size="13" fill="#f5e0a0" letter-spacing=".15em">MERCY</text>
+          <text x="240" y="272" text-anchor="middle" font-family="Rye, serif" font-size="19" fill="#f5e0a0" letter-spacing=".05em">REVIVAL</text>
+          <text x="240" y="289" text-anchor="middle" font-family="Special Elite, monospace" font-size="8" fill="#1a0d08" letter-spacing=".3em">SIDE A · 33⅓</text>
+          <!-- spindle hole -->
+          <circle cx="240" cy="262" r="2.5" fill="#0a0807"/>
+        </g>
+
+        <!-- TONEARM -->
+        <g class="tonearm">
+          <!-- base mount -->
+          <rect x="476" y="100" width="32" height="44" rx="3" fill="#1a1614" stroke="#5a3220" stroke-width="1.5"/>
+          <!-- counterweight knob -->
+          <circle cx="492" cy="106" r="9" fill="#3a2010" stroke="#1a0d08" stroke-width="1"/>
+          <!-- pivot -->
+          <circle cx="492" cy="142" r="20" fill="#1a1614" stroke="#5a3220" stroke-width="1.5"/>
+          <circle cx="492" cy="142" r="6" fill="#3a2010"/>
+          <!-- arm tube -->
+          <line x1="492" y1="142" x2="296" y2="232" stroke="#c9a679" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="492" y1="142" x2="296" y2="232" stroke="#5a3220" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- cartridge / headshell -->
+          <path d="M 304,230 L 286,244 L 270,238 L 276,222 L 294,220 Z" fill="#1a0d08" stroke="#3a2010" stroke-width="1"/>
+          <!-- needle on record -->
+          <line x1="280" y1="240" x2="276" y2="248" stroke="#c9a679" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="276" cy="248" r="1.5" fill="#f5904c"/>
+        </g>
+
+        <!-- CONTROLS PANEL -->
+        <g class="controls">
+          <!-- speed selector window -->
+          <rect x="466" y="278" width="76" height="44" rx="4" fill="#0a0807" stroke="#3a2010" stroke-width="1"/>
+          <text x="504" y="298" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#f5904c" letter-spacing=".05em">33⅓</text>
+          <text x="504" y="314" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#5a3220" letter-spacing=".05em">45 · 78</text>
+          <!-- start/stop button -->
+          <circle cx="504" cy="350" r="14" fill="#1a0d08" stroke="#5a3220" stroke-width="1.5"/>
+          <circle cx="504" cy="350" r="9" fill="#3a2010"/>
+          <text x="504" y="376" text-anchor="middle" font-family="Special Elite, monospace" font-size="7" fill="#c9a679" letter-spacing=".3em">START</text>
+          <!-- power LED -->
+          <circle cx="504" cy="402" r="4.5" fill="#f5904c">
+            <animate attributeName="opacity" values="0.55;1;0.55" dur="2.6s" repeatCount="indefinite"/>
+          </circle>
+          <text x="504" y="420" text-anchor="middle" font-family="Special Elite, monospace" font-size="7" fill="#c9a679" letter-spacing=".3em">PWR</text>
+        </g>
+
+        <!-- BRAND PLATE -->
+        <g class="brand-plate">
+          <text x="80" y="430" font-family="Rye, serif" font-size="13" fill="#c25a2b" letter-spacing=".15em">MERCY · REVIVAL</text>
+          <text x="80" y="446" font-family="Special Elite, monospace" font-size="8" fill="#5a3220" letter-spacing=".25em">MODEL · MR-1959</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- CATALOG -->
+    <div class="catalog">
+      <!-- HERO ROW — LIGHTNING CRASHES -->
+      <div class="catalog-hero">
+        <div class="catalog-hero-tag"><span class="bolt">⚡</span> FLAGSHIP · THE STORM ITSELF</div>
+        <div class="catalog-hero-grid">
+          <div class="catalog-hero-title">Lightning Crashes</div>
+          <div class="catalog-hero-og">LIVE · "Throwing Copper" · 1994</div>
+          <div class="catalog-hero-streams">820<small>M</small></div>
+          <div class="catalog-hero-status">REVIVED · '26</div>
+        </div>
+      </div>
+
+      <div class="catalog-head">
+        <span>SONG</span>
+        <span>ORIGINAL</span>
+        <span>STREAMS</span>
+        <span>STATUS</span>
+      </div>
+
+      <div class="catalog-scroll">
+        <div class="catalog-track">
+          <!-- ROWS — first pass -->
+          <div class="row">
+            <div class="title">I Alone</div>
+            <div class="og">LIVE · Throwing Copper · '94</div>
+            <div class="streams">180<small>M</small></div>
+            <div class="status">REVIVED</div>
+          </div>
+          <div class="row">
+            <div class="title">Selling the Drama</div>
+            <div class="og">LIVE · Throwing Copper · '94</div>
+            <div class="streams">120<small>M</small></div>
+            <div class="status">REVIVED</div>
+          </div>
+          <div class="row">
+            <div class="title">All Over You</div>
+            <div class="og">LIVE · Throwing Copper · '94</div>
+            <div class="streams">95<small>M</small></div>
+            <div class="status">REVIVED</div>
+          </div>
+          <div class="row">
+            <div class="title">Lakini's Juice</div>
+            <div class="og">LIVE · Secret Samadhi · '97</div>
+            <div class="streams">60<small>M</small></div>
+            <div class="status">REVIVED</div>
+          </div>
+          <div class="row">
+            <div class="title">Operation Spirit</div>
+            <div class="og">LIVE · Mental Jewelry · '91</div>
+            <div class="streams">12<small>M</small></div>
+            <div class="status tracking">DEEP CUT</div>
+          </div>
+
+          <!-- DUPLICATE for seamless loop -->
+          <div class="row">
+            <div class="title">I Alone</div>
+            <div class="og">LIVE · Throwing Copper · '94</div>
+            <div class="streams">180<small>M</small></div>
+            <div class="status">REVIVED</div>
+          </div>
+          <div class="row">
+            <div class="title">Selling the Drama</div>
+            <div class="og">LIVE · Throwing Copper · '94</div>
+            <div class="streams">120<small>M</small></div>
+            <div class="status">REVIVED</div>
+          </div>
+          <div class="row">
+            <div class="title">All Over You</div>
+            <div class="og">LIVE · Throwing Copper · '94</div>
+            <div class="streams">95<small>M</small></div>
+            <div class="status">REVIVED</div>
+          </div>
+          <div class="row">
+            <div class="title">Lakini's Juice</div>
+            <div class="og">LIVE · Secret Samadhi · '97</div>
+            <div class="streams">60<small>M</small></div>
+            <div class="status">REVIVED</div>
+          </div>
+          <div class="row">
+            <div class="title">Operation Spirit</div>
+            <div class="og">LIVE · Mental Jewelry · '91</div>
+            <div class="streams">12<small>M</small></div>
+            <div class="status tracking">DEEP CUT</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-total">
+        <span class="lbl">CUMULATIVE STREAMS<br/>ON ORIGINALS</span>
+        <span class="num">1.3<em>BILLION+</em></span>
+        <span class="tag">RINSED · REWRITTEN<br/>REVIVED.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+<footer class="footer">
+  <div class="mark">M E R C Y &nbsp; R E V I V A L</div>
+  <div class="tag">"It's not a comeback. It's a reckoning that finally turned to morning."</div>
+  <div class="links">
+    <a href="#cover">TOP</a>
+    <a href="https://samply.app" target="_blank" rel="noopener">SAMPLY</a>
+    <a href="#operation">OPERATION SPIRIT</a>
+    <a href="mailto:hello@mercyrevival.com">CONTACT</a>
+  </div>
+  <div class="copy">© MERCY REVIVAL · ALL RIGHTS RESERVED</div>
+</footer>
+
+
+<!-- =====================================================
+     SCRIPTS
+     ===================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.0.42/lenis.min.js"></script>
+
+<script>
+(() => {
+  'use strict';
+
+  /* Smooth scroll */
+  let lenis = null;
+  if (typeof Lenis !== 'undefined'){
+    lenis = new Lenis({
+      duration: 1.6,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true, smoothTouch: false,
+    });
+    function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
+      lenis.on('scroll', () => ScrollTrigger.update());
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+  }
+  if (typeof ScrollTrigger !== 'undefined'){ gsap.registerPlugin(ScrollTrigger); }
+
+  /* Cursor */
+  const cursor = document.getElementById('cursor');
+  const cursorDot = document.getElementById('cursorDot');
+  let cx=0, cy=0, dx=0, dy=0;
+  window.addEventListener('mousemove', (e) => {
+    cx = e.clientX; cy = e.clientY;
+    cursorDot.style.left = cx + 'px';
+    cursorDot.style.top  = cy + 'px';
+  });
+  (function cursorRaf(){
+    dx += (cx - dx) * 0.15;
+    dy += (cy - dy) * 0.15;
+    cursor.style.left = dx + 'px';
+    cursor.style.top  = dy + 'px';
+    requestAnimationFrame(cursorRaf);
+  })();
+  document.querySelectorAll('a, .photo, .vinyl, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+  });
+
+  /* Rain canvas */
+  const rainCanvas = document.getElementById('rainCanvas');
+  const rctx = rainCanvas.getContext('2d');
+  let drops = [];
+  function sizeRain(){
+    rainCanvas.width = window.innerWidth;
+    rainCanvas.height = window.innerHeight;
+    drops = [];
+    const count = Math.min(120, Math.floor(window.innerWidth / 14));
+    for (let i = 0; i < count; i++){
+      drops.push({
+        x: Math.random() * rainCanvas.width,
+        y: Math.random() * rainCanvas.height,
+        len: 14 + Math.random() * 24,
+        speed: 0.7 + Math.random() * 1.6,
+        opacity: 0.15 + Math.random() * 0.45,
+        wind: -0.18 - Math.random() * 0.12
+      });
+    }
+  }
+  sizeRain();
+  window.addEventListener('resize', sizeRain);
+  (function rainStep(){
+    rctx.clearRect(0,0,rainCanvas.width,rainCanvas.height);
+    rctx.lineCap = 'round';
+    drops.forEach(d => {
+      rctx.strokeStyle = `rgba(232,220,196,${d.opacity})`;
+      rctx.lineWidth = 1;
+      rctx.beginPath();
+      rctx.moveTo(d.x, d.y);
+      rctx.lineTo(d.x + d.wind * 4, d.y + d.len);
+      rctx.stroke();
+      d.x += d.wind;
+      d.y += d.speed;
+      if (d.y > rainCanvas.height + 30 || d.x < -30){
+        d.y = -30;
+        d.x = Math.random() * (rainCanvas.width + 100);
+      }
+    });
+    requestAnimationFrame(rainStep);
+  })();
+
+  /* Lightning */
+  const flash = document.getElementById('flash');
+  const boltSvg = document.getElementById('boltSvg');
+  const boltPath = document.getElementById('boltPath');
+
+  function jaggedPath(startX){
+    const W = 1600, H = 900;
+    const points = [[startX, 0]];
+    let x = startX, y = 0;
+    while (y < H){
+      y += 30 + Math.random() * 70;
+      x += (Math.random() - 0.5) * 180;
+      x = Math.max(40, Math.min(W - 40, x));
+      points.push([x, y]);
+    }
+    let d = `M ${points[0][0]},${points[0][1]}`;
+    for (let i = 1; i < points.length; i++) d += ` L ${points[i][0]},${points[i][1]}`;
+    for (let i = 2; i < points.length - 2; i++){
+      if (Math.random() < 0.35){
+        const [px, py] = points[i];
+        const fx = px + (Math.random() - 0.5) * 220;
+        const fy = py + 60 + Math.random() * 120;
+        d += ` M ${px},${py} L ${fx},${fy}`;
+      }
+    }
+    return d;
+  }
+
+  function triggerLightning(intensity){
+    intensity = intensity || 1;
+    const startX = 200 + Math.random() * 1200;
+    boltPath.setAttribute('d', jaggedPath(startX));
+    if (typeof gsap !== 'undefined'){
+      gsap.timeline()
+        .set(boltSvg, { opacity: 0 })
+        .to(boltSvg, { opacity: 1, duration: 0.04 })
+        .set(flash, { background: `rgba(255,255,255,${0.85 * intensity})` })
+        .to(flash,   { background: 'rgba(255,255,255,0)', duration: 0.45, ease: 'power3.out' }, 0)
+        .to(boltSvg, { opacity: 0, duration: 0.32, ease: 'power3.out' }, 0.06)
+        .set(flash,  { background: `rgba(255,255,255,${0.55 * intensity})` }, '+=0.08')
+        .to(flash,   { background: 'rgba(255,255,255,0)', duration: 0.5, ease: 'power3.out' });
+    } else {
+      // CSS fallback
+      flash.style.transition = 'background 0.04s linear';
+      flash.style.background = `rgba(255,255,255,${0.85*intensity})`;
+      boltSvg.style.opacity = '1';
+      setTimeout(() => {
+        flash.style.transition = 'background 0.5s ease-out';
+        flash.style.background = 'rgba(255,255,255,0)';
+        boltSvg.style.opacity = '0';
+      }, 70);
+    }
+    document.body.classList.remove('thunder');
+    void document.body.offsetWidth;
+    document.body.classList.add('thunder');
+  }
+
+  function ambientLightning(){
+    const wait = 14000 + Math.random() * 18000;
+    setTimeout(() => { triggerLightning(0.7 + Math.random() * 0.3); ambientLightning(); }, wait);
+  }
+  setTimeout(ambientLightning, 5000);
+
+  if (typeof ScrollTrigger !== 'undefined'){
+    ScrollTrigger.create({ trigger: '#act-i',   start: 'top 80%', onEnter: () => triggerLightning(1) });
+    ScrollTrigger.create({ trigger: '#act-iii', start: 'top 70%', onEnter: () => triggerLightning(1) });
+  }
+
+  /* Cover glitch periodic */
+  const titleEl = document.getElementById('coverTitle');
+  if (titleEl){
+    function pulseGlitch(){
+      titleEl.classList.add('active');
+      setTimeout(() => titleEl.classList.remove('active'), 1500);
+      setTimeout(pulseGlitch, 6500 + Math.random() * 8000);
+    }
+    setTimeout(pulseGlitch, 5000);
+  }
+
+  /* Cracks draw on Act I */
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
+    ['#crack1','#crack2','#crack3','#crack4'].forEach((sel, i) => {
+      gsap.to(sel, {
+        strokeDashoffset: 0,
+        ease: 'none',
+        scrollTrigger: { trigger: '#act-i', start: 'top 70%', end: 'bottom top', scrub: 1.4 },
+        delay: i * 0.1
+      });
+    });
+
+    /* Parallax on bg-photo */
+    document.querySelectorAll('.bg-photo').forEach(el => {
+      gsap.to(el, {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1.6 }
+      });
+    });
+
+    /* Reveal animations — these enhance, never hide */
+    gsap.utils.toArray('h2, .break-content .lyric, .road-stats, .featured-track, .band-grid .photo, .lantern-svg').forEach(el => {
+      gsap.from(el, {
+        opacity: 0, y: 40, duration: 1.4, ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' }
+      });
+    });
+
+    /* Telephone poles sweep */
+    const poleLayer = document.getElementById('poleLayer');
+    for (let i = 0; i < 7; i++){
+      const p = document.createElement('div');
+      p.className = 'pole';
+      p.style.left = ((i / 6) * 110 - 5) + '%';
+      p.style.height = (160 + Math.random() * 120) + 'px';
+      p.style.opacity = 0.4 + Math.random() * 0.4;
+      poleLayer.appendChild(p);
+    }
+    gsap.to('.pole', {
+      x: () => -window.innerWidth * 0.5,
+      ease: 'none',
+      scrollTrigger: { trigger: '#act-ii', start: 'top bottom', end: 'bottom top', scrub: 1.4 }
+    });
+
+    /* Sun rises */
+    gsap.fromTo('.sun-svg',
+      { y: 140 },
+      { y: 0, ease: 'none',
+        scrollTrigger: { trigger: '#act-v', start: 'top bottom', end: 'top center', scrub: 2 }
+      }
+    );
+
+    /* Turntable record spin-up on entering view */
+    const recordDisc = document.getElementById('recordDisc');
+    if (recordDisc){
+      ScrollTrigger.create({
+        trigger: '.music-section',
+        start: 'top 75%',
+        onEnter: () => recordDisc.style.animationDuration = '4.8s',
+      });
+      const turntable = document.querySelector('.turntable');
+      turntable.addEventListener('mouseenter', () => recordDisc.style.animationDuration = '2.2s');
+      turntable.addEventListener('mouseleave', () => recordDisc.style.animationDuration = '4.8s');
+    }
+
+    /* Progress rail */
+    const bar = document.getElementById('progressBar');
+    ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: (self) => { bar.style.height = (self.progress * 100) + '%'; }
+    });
+
+    /* Active nav */
+    const navLinks = document.querySelectorAll('.nav-acts a');
+    const navMap = ['act-i','act-ii','act-iii','act-iv','operation','act-v'];
+    navMap.forEach((id, i) => {
+      ScrollTrigger.create({
+        trigger: '#' + id,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        onToggle: (self) => {
+          if (self.isActive){
+            navLinks.forEach(a => a.classList.remove('active'));
+            if (navLinks[i]) navLinks[i].classList.add('active');
+          }
+        }
+      });
+    });
+  } else {
+    /* No GSAP fallback — basic intersection-based reveals */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          e.target.style.opacity = 1;
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.featured-track, .band-grid .photo').forEach(el => {
+      el.style.transition = 'opacity 1.4s, transform 1.4s';
+      io.observe(el);
+    });
+  }
+
+  /* Smooth nav anchors */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (href.length > 1){
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target){
+          if (lenis) lenis.scrollTo(target, { offset: 0, duration: 2.2 });
+          else target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  /* Click ember burst */
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('iframe, input, textarea, button, a, canvas')) return;
+    for (let i = 0; i < 8; i++){
+      const dot = document.createElement('div');
+      dot.style.cssText = `position:fixed; left:${e.clientX}px; top:${e.clientY}px;
+        width:4px; height:4px; border-radius:50%; background:var(--ember);
+        box-shadow: 0 0 12px var(--ember); pointer-events:none; z-index:9998;`;
+      document.body.appendChild(dot);
+      if (typeof gsap !== 'undefined'){
+        gsap.to(dot, {
+          x: (Math.random()-0.5)*200, y: -20 - Math.random()*100,
+          opacity: 0, duration: 1.2 + Math.random(),
+          ease: 'power2.out', onComplete: () => dot.remove()
+        });
+      } else {
+        setTimeout(() => dot.remove(), 800);
+      }
+    }
+  });
+
+  /* =========================================================
+     OPERATION SPIRIT — game
+     ========================================================= */
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const overlay = document.getElementById('gameOverlay');
+  const startBtn = document.getElementById('gameStart');
+  const hudScore = document.getElementById('hudScore');
+  const hudLives = document.getElementById('hudLives');
+
+  function fitGame(){
+    const r = canvas.getBoundingClientRect();
+    canvas.width = r.width;
+    canvas.height = r.height;
+  }
+  fitGame();
+  window.addEventListener('resize', fitGame);
+
+  const Game = {
+    running: false, score: 0, lives: 3, invuln: 0, timeScale: 1,
+    keys: {}, mouse: { x: 0, y: 0, active: false },
+    player: { x: 0, y: 0, r: 14, vx: 0, vy: 0 },
+    crosses: [], snakes: [], spawnCrossT: 0, spawnSnakeT: 0, last: 0,
+  };
+
+  function resetGame(){
+    Game.score = 0; Game.lives = 3; Game.invuln = 0; Game.timeScale = 1;
+    Game.crosses = []; Game.snakes = []; Game.spawnCrossT = 0; Game.spawnSnakeT = 0;
+    Game.player.x = canvas.width / 2; Game.player.y = canvas.height / 2;
+    Game.player.vx = 0; Game.player.vy = 0;
+    updateHUD();
+  }
+  function updateHUD(){
+    hudScore.textContent = Game.score;
+    hudLives.textContent = '♥ '.repeat(Game.lives).trim() || '–';
+  }
+  function spawnCross(){
+    Game.crosses.push({
+      x: 30 + Math.random() * (canvas.width - 60),
+      y: -30,
+      vy: 0.6 + Math.random() * 0.7,
+      r: 14, rot: Math.random() * Math.PI,
+      drift: (Math.random() - 0.5) * 0.4,
+    });
+  }
+  function spawnSnake(){
+    const fromLeft = Math.random() < 0.5;
+    Game.snakes.push({
+      x: fromLeft ? -50 : canvas.width + 50,
+      y: 60 + Math.random() * (canvas.height - 120),
+      vx: fromLeft ? 1.2 + Math.random() * 0.8 : -(1.2 + Math.random() * 0.8),
+      amp: 30 + Math.random() * 40, freq: 0.018 + Math.random() * 0.015,
+      phase: Math.random() * Math.PI * 2, seg: 16, r: 12, t: 0,
+    });
+  }
+
+  function drawCross(c){
+    ctx.save();
+    ctx.translate(c.x, c.y);
+    ctx.rotate(c.rot);
+    ctx.shadowColor = '#a8232b'; ctx.shadowBlur = 14;
+    ctx.fillStyle = '#d23139';
+    ctx.fillRect(-3, -c.r, 6, c.r * 2);
+    ctx.fillRect(-c.r, -3, c.r * 2, 6);
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = 'rgba(255,255,255,.35)';
+    ctx.fillRect(-3, -c.r, 2, 4);
+    ctx.fillRect(-c.r, -3, 4, 2);
+    ctx.restore();
+  }
+  function drawSnake(s){
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    for (let i = 0; i < s.seg; i++){
+      const t = i / (s.seg - 1);
+      const segX = s.x - s.vx * 6 * i;
+      const segY = s.y + Math.sin(s.t * s.freq * 30 + s.phase + i * 0.6) * s.amp * (1 - t * 0.4);
+      if (i === 0) ctx.moveTo(segX, segY); else ctx.lineTo(segX, segY);
+    }
+    ctx.lineWidth = 6; ctx.strokeStyle = '#9a6a3c';
+    ctx.shadowColor = '#3a2010'; ctx.shadowBlur = 8;
+    ctx.stroke();
+    ctx.lineWidth = 2.5; ctx.strokeStyle = '#3a2010';
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    const headX = s.x;
+    const headY = s.y + Math.sin(s.t * s.freq * 30 + s.phase) * s.amp;
+    ctx.beginPath();
+    ctx.fillStyle = '#7a4828';
+    ctx.arc(headX, headY, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#f5e0a0';
+    const dirX = s.vx > 0 ? 3 : -3;
+    ctx.beginPath();
+    ctx.arc(headX + dirX, headY - 2, 1.6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#d23139';
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(headX + dirX * 2.5, headY);
+    ctx.lineTo(headX + dirX * 5, headY - 2);
+    ctx.moveTo(headX + dirX * 2.5, headY);
+    ctx.lineTo(headX + dirX * 5, headY + 2);
+    ctx.stroke();
+    const tailX = s.x - s.vx * 6 * (s.seg - 1);
+    const tailY = s.y + Math.sin(s.t * s.freq * 30 + s.phase + (s.seg - 1) * 0.6) * s.amp * 0.6;
+    ctx.fillStyle = '#5a3220';
+    for (let k = 0; k < 3; k++){
+      ctx.beginPath();
+      ctx.arc(tailX - s.vx * 4 * k, tailY, 3 - k * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+  function drawPlayer(){
+    const p = Game.player;
+    const flicker = (Game.invuln > 0 && Math.floor(Game.invuln * 10) % 2 === 0) ? 0.4 : 1;
+    ctx.save();
+    const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 50);
+    grad.addColorStop(0, `rgba(245,224,160,${0.85 * flicker})`);
+    grad.addColorStop(0.4, `rgba(245,144,76,${0.35 * flicker})`);
+    grad.addColorStop(1, 'rgba(245,144,76,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 50, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = `rgba(255,250,235,${flicker})`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+  function drawBackground(){
+    const g = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    g.addColorStop(0, '#1a0d08'); g.addColorStop(0.5, '#2a1a0e'); g.addColorStop(1, '#3d2a18');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = 'rgba(245,144,76,.18)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height * 0.55);
+    ctx.lineTo(canvas.width, canvas.height * 0.55);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(232,220,196,.15)';
+    ctx.setLineDash([12, 18]);
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height * 0.78);
+    ctx.lineTo(canvas.width, canvas.height * 0.78);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  function dist(ax, ay, bx, by){ const dx=ax-bx, dy=ay-by; return Math.sqrt(dx*dx + dy*dy); }
+
+  const bursts = [];
+  function burst(x, y, color){
+    for (let i = 0; i < 14; i++){
+      const a = Math.random() * Math.PI * 2;
+      const sp = 1 + Math.random() * 3.5;
+      bursts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, color });
+    }
+  }
+  function burstStep(){
+    for (let i = bursts.length - 1; i >= 0; i--){
+      const b = bursts[i];
+      b.x += b.vx; b.y += b.vy;
+      b.vx *= 0.94; b.vy *= 0.94;
+      b.life -= 0.03;
+      if (b.life <= 0){ bursts.splice(i, 1); continue; }
+      ctx.fillStyle = b.color;
+      ctx.globalAlpha = b.life;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function loop(now){
+    if (!Game.running){ requestAnimationFrame(loop); return; }
+    const dt = Math.min(40, now - Game.last) / 16.67;
+    Game.last = now;
+    const ts = Game.timeScale;
+    const step = dt * ts;
+    const p = Game.player;
+    const accel = 0.6, friction = 0.86;
+    if (Game.mouse.active){
+      p.vx += (Game.mouse.x - p.x) * 0.06 * step;
+      p.vy += (Game.mouse.y - p.y) * 0.06 * step;
+    } else {
+      if (Game.keys.ArrowLeft  || Game.keys.a) p.vx -= accel * step;
+      if (Game.keys.ArrowRight || Game.keys.d) p.vx += accel * step;
+      if (Game.keys.ArrowUp    || Game.keys.w) p.vy -= accel * step;
+      if (Game.keys.ArrowDown  || Game.keys.s) p.vy += accel * step;
+    }
+    p.vx *= Math.pow(friction, step);
+    p.vy *= Math.pow(friction, step);
+    p.x += p.vx * step; p.y += p.vy * step;
+    p.x = Math.max(p.r, Math.min(canvas.width  - p.r, p.x));
+    p.y = Math.max(p.r, Math.min(canvas.height - p.r, p.y));
+
+    Game.spawnCrossT -= dt;
+    if (Game.spawnCrossT <= 0){ spawnCross(); Game.spawnCrossT = 70 + Math.random() * 50; }
+    Game.spawnSnakeT -= dt;
+    if (Game.spawnSnakeT <= 0){ spawnSnake(); Game.spawnSnakeT = 130 + Math.random() * 120 - Math.min(70, Game.score * 0.6); }
+
+    let nearest = Infinity;
+    Game.snakes.forEach(s => {
+      const headY = s.y + Math.sin(s.t * s.freq * 30 + s.phase) * s.amp;
+      const d = dist(p.x, p.y, s.x, headY);
+      if (d < nearest) nearest = d;
+    });
+    const target = nearest < 110 ? 0.45 : 1;
+    Game.timeScale += (target - Game.timeScale) * 0.08;
+
+    if (Game.invuln > 0) Game.invuln -= dt / 60;
+
+    Game.crosses.forEach(c => { c.y += c.vy * step; c.x += c.drift * step; c.rot += 0.01 * step; });
+    Game.crosses = Game.crosses.filter(c => c.y < canvas.height + 40);
+    Game.snakes.forEach(s => { s.x += s.vx * step; s.t += step; });
+    Game.snakes = Game.snakes.filter(s => s.x > -200 && s.x < canvas.width + 200);
+
+    Game.crosses = Game.crosses.filter(c => {
+      if (dist(p.x, p.y, c.x, c.y) < p.r + c.r){
+        Game.score += 10;
+        burst(c.x, c.y, '#d23139');
+        updateHUD();
+        if (Game.score >= 200){
+          Game.running = false;
+          showOverlay({
+            title: 'REVIVAL',
+            body: 'You carried mercy through the night. The morning is yours.',
+            btn: 'CONTINUE THE STORY',
+            onClick: () => {
+              hideOverlay();
+              const target = document.querySelector('#act-v');
+              if (lenis) lenis.scrollTo(target, { offset: 0, duration: 2 });
+              else target.scrollIntoView({ behavior: 'smooth' });
+            }
+          });
+        }
+        return false;
+      }
+      return true;
+    });
+    if (Game.invuln <= 0){
+      Game.snakes.forEach(s => {
+        const headX = s.x;
+        const headY = s.y + Math.sin(s.t * s.freq * 30 + s.phase) * s.amp;
+        if (dist(p.x, p.y, headX, headY) < p.r + s.r){
+          Game.lives -= 1; Game.invuln = 1.4;
+          burst(p.x, p.y, '#f5904c');
+          canvas.parentElement.style.transform = 'translate(2px,1px)';
+          setTimeout(() => canvas.parentElement.style.transform = '', 80);
+          updateHUD();
+          if (Game.lives <= 0){
+            Game.running = false;
+            showOverlay({
+              title: 'THE WILDERNESS WINS · TONIGHT',
+              body: `You gathered ${Game.score} mercy before the snakes caught you. Try again — the morning is closer than you think.`,
+              btn: 'TRY AGAIN',
+              onClick: () => { hideOverlay(); resetGame(); Game.running = true; Game.last = performance.now(); }
+            });
+          }
+        }
+      });
+    }
+
+    drawBackground();
+    Game.crosses.forEach(drawCross);
+    Game.snakes.forEach(drawSnake);
+    burstStep();
+    drawPlayer();
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('keydown', (e) => { Game.keys[e.key] = true; });
+  window.addEventListener('keyup',   (e) => { Game.keys[e.key] = false; });
+  canvas.addEventListener('mousemove', (e) => {
+    const r = canvas.getBoundingClientRect();
+    Game.mouse.x = e.clientX - r.left;
+    Game.mouse.y = e.clientY - r.top;
+    Game.mouse.active = true;
+  });
+  canvas.addEventListener('mouseleave', () => { Game.mouse.active = false; });
+  canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    const r = canvas.getBoundingClientRect();
+    const t = e.touches[0];
+    Game.mouse.x = t.clientX - r.left;
+    Game.mouse.y = t.clientY - r.top;
+    Game.mouse.active = true;
+  }, { passive: false });
+
+  function showOverlay({ title, body, btn, onClick }){
+    overlay.innerHTML = `
+      <h3>${title}</h3>
+      <p>${body}</p>
+      <button class="game-btn" id="gameAction">${btn}</button>
+      <div class="game-controls">↑ ↓ ← →&nbsp;&nbsp;OR&nbsp;&nbsp;MOUSE</div>
+    `;
+    overlay.classList.remove('hidden');
+    document.getElementById('gameAction').addEventListener('click', onClick);
+  }
+  function hideOverlay(){ overlay.classList.add('hidden'); }
+
+  startBtn.addEventListener('click', () => {
+    hideOverlay();
+    resetGame();
+    Game.running = true;
+    Game.last = performance.now();
+  });
+
+  requestAnimationFrame(loop);
+
+  if (typeof ScrollTrigger !== 'undefined'){
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+  }
+})();
+</script>
+
+<script>
+/* =========================================================
+   3D PARALLAX HERO STAGE
+   Mouse tilt + scroll-driven layer translate
+   ========================================================= */
+(() => {
+  const cover = document.querySelector('.cover');
+  const hero  = document.getElementById('hero3d');
+  if (!cover || !hero) return;
+
+  const layers = hero.querySelectorAll('.depth');
+
+  let mx = 0, my = 0;     // target mouse offset (-0.5 .. 0.5)
+  let cx = 0, cy = 0;     // current eased values
+  let scrollProgress = 0; // 0 at top, 1 when cover is one viewport scrolled
+
+  // Mouse tracking — works anywhere on viewport while cover is visible
+  window.addEventListener('mousemove', (e) => {
+    const r = cover.getBoundingClientRect();
+    if (r.bottom < 0) return;        // cover off-screen
+    mx = (e.clientX / window.innerWidth)  - 0.5;
+    my = (e.clientY / window.innerHeight) - 0.5;
+  });
+
+  // Scroll progress for the hero
+  function updateScroll(){
+    const r = cover.getBoundingClientRect();
+    scrollProgress = Math.max(0, Math.min(1, -r.top / r.height));
+  }
+  window.addEventListener('scroll', updateScroll, { passive: true });
+  window.addEventListener('resize', updateScroll);
+  updateScroll();
+
+  function tick(){
+    cx += (mx - cx) * 0.07;
+    cy += (my - cy) * 0.07;
+
+    // Parent rotation — gives the whole stage a perspective tilt
+    const rotY = cx * 7;
+    const rotX = -cy * 5;
+    hero.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
+
+    // Per-layer scroll-driven Y translate (stronger on forward layers)
+    layers.forEach(layer => {
+      const z = parseFloat(layer.dataset.depth || '0');
+      // Forward layers move faster on scroll, backward layers slower
+      const speed = z > 0 ? 1.2 + z / 200 : 0.6 + Math.abs(z) / 1200;
+      const offsetY = scrollProgress * window.innerHeight * speed * -0.4;
+      // Preserve the layer's base translateZ + add scroll Y
+      layer.style.setProperty('--scroll-offset', `${offsetY}px`);
+    });
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  // Boot fade-in for layers
+  if (typeof gsap !== 'undefined'){
+    gsap.from('.depth-bg',    { opacity: 0, duration: 2.4, ease: 'power3.out' });
+    gsap.from('.depth-band',  { opacity: 0, duration: 2.6, ease: 'power3.out', delay: 0.2 });
+    gsap.from('.depth-logo',  { opacity: 0, scale: 0.7, duration: 2.4, ease: 'expo.out', delay: 0.6 });
+    gsap.from('.cover-meta',  { opacity: 0, y: 20, duration: 1.6, ease: 'power3.out', delay: 1.6 });
+    gsap.from('.cover-scrollhint', { opacity: 0, duration: 1.6, ease: 'power3.out', delay: 2 });
+  }
+})();
+</script>
+
+<style>
+/* Apply scroll offset on top of each depth's existing transform */
+.depth-bg    { transform: translate3d(0, var(--scroll-offset, 0), -500px) scale(1.6); }
+.depth-band  { transform: translate3d(0, var(--scroll-offset, 0), -180px) scale(1.22); animation: none; }
+.depth-logo  { transform: translate3d(0, var(--scroll-offset, 0), 140px)  scale(.88);  }
+.depth-frame { transform: translate3d(0, var(--scroll-offset, 0), 220px); }
+</style>
+
+</body>
+</html>
