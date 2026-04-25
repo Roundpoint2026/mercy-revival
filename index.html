@@ -17,13 +17,14 @@
    ========================================================= */
 
 :root {
-  --burnt-orange:   #c25a2b;
-  --dusty-amber:    #d4a256;
+  /* Gold palette pulled from the Mercy Revival logo */
+  --burnt-orange:   #9a7424;   /* deep aged gold (was burnt orange) */
+  --dusty-amber:    #c89c38;   /* mid gold */
   --deep-charcoal:  #14110f;
   --darker:         #0a0807;
   --washed-denim:   #5a7a8c;
   --sepia:          #c9a679;
-  --ember:          #f5904c;
+  --ember:          #e6b53d;   /* bright distressed gold (was ember orange) */
   --bone:           #e8dcc4;
   --blood:          #a8232b;
 
@@ -98,7 +99,7 @@ a { color: inherit; text-decoration: none; }
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 22px rgba(245,144,76,.7));
+  filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 22px rgba(230,181,61,.7));
 }
 
 .vignette {
@@ -123,7 +124,7 @@ body.thunder { animation: shake .55s var(--ease-thunder); }
 .cursor {
   position: fixed;
   width: 28px; height: 28px;
-  border: 1px solid rgba(245,144,76,0.5);
+  border: 1px solid rgba(230,181,61,0.5);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -133,8 +134,8 @@ body.thunder { animation: shake .55s var(--ease-thunder); }
 }
 .cursor.active {
   width: 64px; height: 64px;
-  background: rgba(245,144,76,0.18);
-  border-color: rgba(245,144,76,0.85);
+  background: rgba(230,181,61,0.18);
+  border-color: rgba(230,181,61,0.85);
 }
 .cursor-dot {
   position:fixed;
@@ -241,7 +242,7 @@ section {
   display:inline-block;
   margin-right: 16px;
   padding-right: 16px;
-  border-right: 1px solid rgba(245,144,76,0.3);
+  border-right: 1px solid rgba(230,181,61,0.3);
 }
 
 /* Background photo helper */
@@ -297,14 +298,14 @@ section {
   transform: translateZ(-500px) scale(1.6);
   background:
     radial-gradient(ellipse at 50% 50%, #1a0d08 0%, #0a0807 65%),
-    repeating-linear-gradient(45deg, transparent 0, transparent 6px, rgba(245,144,76,.025) 6px, rgba(245,144,76,.025) 12px);
+    repeating-linear-gradient(45deg, transparent 0, transparent 6px, rgba(230,181,61,.025) 6px, rgba(230,181,61,.025) 12px);
 }
 .depth-bg::after {
   content:'';
   position:absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 18% 22%, rgba(245,144,76,.18), transparent 35%),
+    radial-gradient(circle at 18% 22%, rgba(230,181,61,.18), transparent 35%),
     radial-gradient(circle at 80% 78%, rgba(168,35,43,.1), transparent 40%);
 }
 
@@ -321,6 +322,7 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 78% 50%;       /* shift focal point right toward the founder */
   filter: brightness(.92) contrast(1.05) saturate(1.08);
 }
 .depth-band::after {
@@ -343,7 +345,7 @@ section {
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 28px 60px rgba(0,0,0,.7)) drop-shadow(0 0 40px rgba(245,144,76,.15));
+  filter: drop-shadow(0 28px 60px rgba(0,0,0,.7)) drop-shadow(0 0 40px rgba(230,181,61,.15));
   animation: logoFloat 7s ease-in-out infinite alternate;
 }
 @keyframes logoFloat {
@@ -438,7 +440,7 @@ section {
 }
 .act-break .bg-tint {
   background:
-    radial-gradient(ellipse at 80% 40%, rgba(245,144,76,0.22), transparent 50%),
+    radial-gradient(ellipse at 80% 40%, rgba(230,181,61,0.22), transparent 50%),
     linear-gradient(90deg, rgba(10,8,7,.92) 0%, rgba(10,8,7,.55) 45%, rgba(10,8,7,.2) 75%, rgba(10,8,7,.6) 100%);
 }
 .break-content {
@@ -480,8 +482,8 @@ section {
   color: var(--ember);
   text-shadow:
     0 0 6px var(--ember),
-    0 0 18px rgba(245,144,76,0.6),
-    0 0 36px rgba(245,144,76,0.4);
+    0 0 18px rgba(230,181,61,0.6),
+    0 0 36px rgba(230,181,61,0.4);
   letter-spacing: .12em;
   z-index: 4;
   transform: rotate(-2deg);
@@ -490,7 +492,7 @@ section {
 @keyframes neon-flicker {
   0%,18%,22%,25%,53%,57%,100% {
     opacity:1;
-    text-shadow: 0 0 6px var(--ember), 0 0 18px rgba(245,144,76,0.6), 0 0 36px rgba(245,144,76,0.4);
+    text-shadow: 0 0 6px var(--ember), 0 0 18px rgba(230,181,61,0.6), 0 0 36px rgba(230,181,61,0.4);
   }
   20%,24%,55% { opacity:.2; text-shadow: none; }
 }
@@ -503,10 +505,10 @@ section {
 }
 .cracks path {
   fill: none;
-  stroke: rgba(245,144,76,0.55);
+  stroke: rgba(230,181,61,0.55);
   stroke-width: 1;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 4px rgba(245,144,76,0.5));
+  filter: drop-shadow(0 0 4px rgba(230,181,61,0.5));
 }
 
 /* Pull-quote on right side */
@@ -522,7 +524,7 @@ section {
   color: var(--bone);
   opacity: .82;
   z-index: 5;
-  border-left: 1px solid rgba(245,144,76,0.5);
+  border-left: 1px solid rgba(230,181,61,0.5);
   padding-left: 18px;
 }
 @media (max-width: 900px){ .break-quote { display:none; } }
@@ -622,7 +624,7 @@ section {
   font-family: var(--display);
   font-size: clamp(48px, 7vw, 104px);
   color: var(--burnt-orange);
-  text-shadow: 0 0 16px rgba(194,90,43,0.7), 0 0 36px rgba(194,90,43,0.4);
+  text-shadow: 0 0 16px rgba(154,116,36,0.7), 0 0 36px rgba(154,116,36,0.4);
   opacity: .65;
   letter-spacing: .05em;
   transform: rotate(-3deg);
@@ -679,7 +681,7 @@ section {
   content:'';
   position:absolute;
   inset:0;
-  background: radial-gradient(circle at 60% 40%, rgba(245,144,76,.18), transparent 55%);
+  background: radial-gradient(circle at 60% 40%, rgba(230,181,61,.18), transparent 55%);
   mix-blend-mode: screen;
 }
 .reckon-text {
@@ -714,15 +716,15 @@ section {
   opacity: .7;
   margin-bottom: 48px;
 }
-.featured-track {
-  padding: 28px;
-  border: 1px solid rgba(245,144,76,0.25);
-  background: rgba(20,17,15,0.85);
-  backdrop-filter: blur(8px);
+/* Single Sleeve — flagship single artwork */
+.single-sleeve {
   position: relative;
+  border: 1px solid rgba(230,181,61,.28);
+  background: rgba(20,17,15,.92);
+  overflow: hidden;
 }
-.featured-track::before {
-  content: 'FEATURED';
+.single-sleeve::before {
+  content: 'NEW · FIRST SINGLE';
   position: absolute;
   top: -10px; left: 22px;
   font-family: var(--type);
@@ -731,19 +733,129 @@ section {
   background: var(--darker);
   color: var(--ember);
   padding: 2px 10px;
+  z-index: 5;
 }
-.featured-track h3 {
-  font-family: var(--serif);
-  font-size: 26px;
-  font-style: italic;
-  color: var(--bone);
-  margin-bottom: 18px;
-}
-.samply-embed {
+.sleeve-art {
+  position: relative;
   width: 100%;
-  border: 0;
-  display: block;
+  aspect-ratio: 16/10;
+  overflow: hidden;
   background: var(--darker);
+}
+.sleeve-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.sleeve-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 26px 32px;
+}
+.sleeve-mark {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .45em;
+  color: var(--sepia);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sleeve-mark .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ember);
+  box-shadow: 0 0 10px var(--ember);
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%,100% { opacity: .5; transform: scale(.85); }
+  50%     { opacity: 1; transform: scale(1.1); }
+}
+.sleeve-title {
+  font-family: var(--display);
+  font-size: clamp(80px, 14vw, 180px);
+  color: var(--bone);
+  line-height: .82;
+  letter-spacing: .02em;
+  text-align: center;
+  margin: -10px auto 0;
+  text-shadow: 0 6px 40px rgba(0,0,0,.8), 0 0 32px rgba(230,181,61,.18);
+  pointer-events: none;
+}
+.sleeve-title .o {
+  color: var(--ember);
+  display: inline-block;
+  position: relative;
+  text-shadow: 0 0 24px rgba(230,181,61,.6);
+}
+.sleeve-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .4em;
+  color: var(--sepia);
+}
+.play-btn {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .4em;
+  color: var(--darker);
+  background: var(--ember);
+  border: 0;
+  padding: 11px 22px;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform .4s var(--ease-cinema), background .4s, box-shadow .4s;
+  box-shadow: 0 6px 18px rgba(230,181,61,.25);
+}
+.play-btn:hover {
+  background: var(--bone);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(230,181,61,.35);
+}
+.sleeve-credits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding: 20px 26px;
+  border-top: 1px solid rgba(230,181,61,.18);
+  background: rgba(10,8,7,.6);
+}
+.sleeve-credits .cb {
+  font-family: var(--type);
+  font-size: 11px;
+  letter-spacing: .15em;
+  color: var(--sepia);
+}
+.sleeve-credits .cb .lbl {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .35em;
+  color: var(--ember);
+  margin-bottom: 4px;
+  opacity: .85;
+}
+.sleeve-credits .cb strong {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--bone);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+@media (max-width: 720px){
+  .sleeve-credits { grid-template-columns: 1fr; gap: 12px; }
+  .sleeve-overlay { padding: 20px; }
 }
 
 /* =========================================================
@@ -760,7 +872,7 @@ section {
 }
 .act-spark .bg-tint {
   background:
-    radial-gradient(ellipse at 30% 50%, rgba(245,144,76,0.32), transparent 50%),
+    radial-gradient(ellipse at 30% 50%, rgba(230,181,61,0.32), transparent 50%),
     linear-gradient(180deg, rgba(26,13,8,.45) 0%, rgba(13,8,5,.85) 100%);
 }
 .spark-stage {
@@ -780,7 +892,7 @@ section {
 }
 .lantern-svg {
   width: 200px;
-  filter: drop-shadow(0 0 30px rgba(245,144,76,0.55));
+  filter: drop-shadow(0 0 30px rgba(230,181,61,0.55));
 }
 .spark-stage h2 {
   font-family: var(--serif);
@@ -802,9 +914,9 @@ section {
   z-index: 2;
   background:
     conic-gradient(from 200deg at 50% 0%,
-      transparent 0deg, rgba(245,144,76,0.10) 25deg,
-      transparent 50deg, rgba(245,144,76,0.07) 75deg,
-      transparent 100deg, rgba(245,144,76,0.10) 125deg,
+      transparent 0deg, rgba(230,181,61,0.10) 25deg,
+      transparent 50deg, rgba(230,181,61,0.07) 75deg,
+      transparent 100deg, rgba(230,181,61,0.10) 125deg,
       transparent 160deg);
   filter: blur(20px);
   mix-blend-mode: screen;
@@ -862,7 +974,7 @@ section {
   width: 100%;
   aspect-ratio: 16/9;
   background: #0a0807;
-  border: 1px solid rgba(245,144,76,.22);
+  border: 1px solid rgba(230,181,61,.22);
   box-shadow:
     0 30px 80px rgba(0,0,0,.55),
     inset 0 0 80px rgba(0,0,0,.6);
@@ -931,7 +1043,7 @@ section {
 .game-btn:hover {
   background: var(--bone);
   transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(245,144,76,.35);
+  box-shadow: 0 14px 28px rgba(230,181,61,.35);
 }
 .game-controls {
   margin-top: 14px;
@@ -1052,7 +1164,7 @@ section {
 .music-section {
   position: relative;
   background:
-    radial-gradient(ellipse at 80% 20%, rgba(245,144,76,.10), transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(230,181,61,.10), transparent 50%),
     linear-gradient(180deg, #1a0d08 0%, #2a1a0e 50%, #14110f 100%);
   padding: 140px 32px 160px;
   overflow: hidden;
@@ -1087,6 +1199,97 @@ section {
   max-width: 640px;
   margin: 0 auto;
 }
+/* Three Originals — the band's NEW music, hero strip above the covers catalog */
+.originals-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 1320px;
+  margin: 0 auto 72px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 900px){
+  .originals-grid { grid-template-columns: 1fr; }
+}
+.og-card {
+  position: relative;
+  padding: 36px 28px 30px;
+  border: 1px solid rgba(230,181,61,.22);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(230,181,61,.08), transparent 60%),
+    rgba(10,8,7,.85);
+  overflow: hidden;
+  transition: transform .8s var(--ease-cinema), border-color .8s, background .8s;
+}
+.og-card::before {
+  content:'';
+  position: absolute;
+  top:0; left:0; right:0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ember), transparent);
+  opacity: .55;
+}
+.og-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(230,181,61,.45);
+}
+.og-flagship {
+  background:
+    radial-gradient(ellipse at 80% 30%, rgba(230,181,61,.18), transparent 60%),
+    linear-gradient(135deg, rgba(154,116,36,.25), rgba(10,8,7,.92));
+  border-color: rgba(230,181,61,.45);
+}
+.og-tag {
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .5em;
+  color: var(--ember);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.og-tag .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ember);
+  box-shadow: 0 0 10px var(--ember);
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+.og-title {
+  font-family: var(--display);
+  font-size: clamp(38px, 4.5vw, 76px);
+  color: var(--bone);
+  line-height: .92;
+  letter-spacing: .005em;
+  margin-bottom: 26px;
+  text-shadow: 0 4px 22px rgba(0,0,0,.6);
+}
+.og-flagship .og-title {
+  font-size: clamp(56px, 7vw, 110px);
+  letter-spacing: .025em;
+}
+.og-title .o {
+  color: var(--ember);
+  text-shadow: 0 0 24px rgba(230,181,61,.55);
+}
+.og-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .35em;
+  color: var(--sepia);
+  padding-top: 16px;
+  border-top: 1px dashed rgba(230,181,61,.2);
+}
+.og-credit {
+  color: var(--ember);
+  opacity: .85;
+}
+
 .music-inner {
   position: relative;
   z-index: 2;
@@ -1123,7 +1326,7 @@ section {
 /* Catalog ledger */
 .catalog {
   background: rgba(10,8,7,.72);
-  border: 1px solid rgba(245,144,76,.18);
+  border: 1px solid rgba(230,181,61,.18);
   position: relative;
 }
 .catalog::before {
@@ -1146,7 +1349,7 @@ section {
   font-size: 10px;
   letter-spacing: .35em;
   color: var(--sepia);
-  border-bottom: 1px dashed rgba(245,144,76,.25);
+  border-bottom: 1px dashed rgba(230,181,61,.25);
 }
 .catalog-scroll {
   height: 360px;
@@ -1211,8 +1414,8 @@ section {
 .row .status {
   display: inline-block;
   padding: 5px 10px;
-  background: rgba(245,144,76,.15);
-  border: 1px solid rgba(245,144,76,.4);
+  background: rgba(230,181,61,.15);
+  border: 1px solid rgba(230,181,61,.4);
   color: var(--ember);
   letter-spacing: .25em;
   font-size: 9px;
@@ -1226,9 +1429,9 @@ section {
   position: relative;
   padding: 26px 24px;
   background:
-    radial-gradient(ellipse at 80% 50%, rgba(245,144,76,.18), transparent 65%),
-    linear-gradient(90deg, rgba(168,35,43,.08), rgba(245,144,76,.04));
-  border-bottom: 1px solid rgba(245,144,76,.35);
+    radial-gradient(ellipse at 80% 50%, rgba(230,181,61,.18), transparent 65%),
+    linear-gradient(90deg, rgba(168,35,43,.08), rgba(230,181,61,.04));
+  border-bottom: 1px solid rgba(230,181,61,.35);
   overflow: hidden;
 }
 .catalog-hero::after {
@@ -1283,7 +1486,7 @@ section {
   font-size: 32px;
   color: var(--ember);
   line-height: 1;
-  text-shadow: 0 0 18px rgba(245,144,76,.4);
+  text-shadow: 0 0 18px rgba(230,181,61,.4);
 }
 .catalog-hero-streams small {
   font-size: 12px;
@@ -1301,7 +1504,7 @@ section {
   font-size: 9px;
   text-align: center;
   justify-self: start;
-  box-shadow: 0 0 18px rgba(245,144,76,.4);
+  box-shadow: 0 0 18px rgba(230,181,61,.4);
 }
 @media (max-width: 720px){
   .catalog-hero-grid { grid-template-columns: 1.4fr 1fr 1fr; }
@@ -1309,7 +1512,7 @@ section {
 }
 
 .catalog-total {
-  border-top: 1px solid rgba(245,144,76,.25);
+  border-top: 1px solid rgba(230,181,61,.25);
   padding: 24px;
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -1360,12 +1563,18 @@ section {
   text-align: center;
 }
 .footer .mark {
-  font-family: var(--display);
-  font-size: clamp(40px, 6vw, 88px);
-  color: var(--burnt-orange);
-  letter-spacing: .03em;
-  opacity: .8;
-  margin-bottom: 32px;
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  margin: 0 auto 32px;
+  opacity: .92;
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,.55)) drop-shadow(0 0 24px rgba(230,181,61,.18));
+  transition: transform .9s var(--ease-cinema), opacity .9s var(--ease-cinema);
+}
+.footer .mark:hover {
+  opacity: 1;
+  transform: translateY(-3px);
 }
 .footer .tag {
   font-family: var(--serif);
@@ -1544,20 +1753,73 @@ section {
     <div class="reckon-photo"></div>
     <div class="reckon-text">
       <div class="act-label" style="position:static; margin-bottom:48px;"><span class="num">III</span>THE RECKONING</div>
-      <div class="label">THE STORM ITSELF · FROM "THROWING COPPER"</div>
-      <h2>And the angel<br/>opens her eyes —<br/><em>lightning crashes</em>.</h2>
-      <div class="source">— LIVE · 1994 · REVIVED 2026</div>
+      <div class="label">FIRST SINGLE · MERCY REVIVAL · 2026</div>
+      <h2>The bottom isn't a place.<br/>It's where you finally<br/><em>hear yourself</em> again.</h2>
+      <div class="source">— FROM "LOW" · MERCY REVIVAL · 2026</div>
 
-      <div class="featured-track">
-        <h3>Lightning Crashes <span style="color:var(--ember);font-style:normal;font-family:var(--type);font-size:11px;letter-spacing:.4em;margin-left:10px;">⚡ FLAGSHIP</span></h3>
-        <iframe
-          class="samply-embed"
-          src="https://samply.app/embed/fbsAr8ExLqeId5Evymhb?color=c25a2b"
-          height="220"
-          frameborder="0"
-          allow="autoplay; encrypted-media"
-          loading="lazy"
-          title="Mercy Revival — Lightning Crashes"></iframe>
+      <div class="single-sleeve">
+        <div class="sleeve-art">
+          <svg class="sleeve-bg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="sleeveSky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"  stop-color="#1a0d08"/>
+                <stop offset="55%" stop-color="#0a0807"/>
+                <stop offset="100%" stop-color="#000"/>
+              </linearGradient>
+              <radialGradient id="sleeveGlow" cx="50%" cy="58%" r="55%">
+                <stop offset="0%"  stop-color="rgba(230,181,61,.30)"/>
+                <stop offset="55%" stop-color="rgba(230,181,61,.05)"/>
+                <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+              </radialGradient>
+              <linearGradient id="boltGold" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#fff8e0"/>
+                <stop offset="40%"  stop-color="#e6b53d"/>
+                <stop offset="100%" stop-color="#9a7424"/>
+              </linearGradient>
+              <filter id="sleeveBlur" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="3"/>
+              </filter>
+            </defs>
+
+            <!-- sky -->
+            <rect width="600" height="400" fill="url(#sleeveSky)"/>
+            <!-- glow -->
+            <rect width="600" height="400" fill="url(#sleeveGlow)"/>
+
+            <!-- distant horizon water/silhouette -->
+            <rect x="0" y="305" width="600" height="20" fill="rgba(230,181,61,.06)"/>
+            <path d="M 0,330 L 60,322 L 130,335 L 220,318 L 290,332 L 360,320 L 440,330 L 520,318 L 600,328 L 600,400 L 0,400 Z" fill="#000"/>
+
+            <!-- forked bolt cluster -->
+            <g filter="url(#sleeveBlur)" opacity=".55">
+              <path d="M 290,30 L 240,180 L 280,180 L 230,330" fill="none" stroke="url(#boltGold)" stroke-width="6" stroke-linecap="round"/>
+              <path d="M 320,30 L 280,170 L 320,170 L 280,300" fill="none" stroke="url(#boltGold)" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+            </g>
+            <g>
+              <path d="M 305,20 L 245,200 L 305,200 L 230,360" fill="none" stroke="url(#boltGold)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 270,210 L 220,250 L 240,250 L 210,290" fill="none" stroke="url(#boltGold)" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+            </g>
+          </svg>
+
+          <div class="sleeve-overlay">
+            <div class="sleeve-mark">
+              <span class="dot"></span>MERCY REVIVAL · SINGLE 001
+            </div>
+
+            <h4 class="sleeve-title">L<span class="o">O</span>W</h4>
+
+            <div class="sleeve-meta">
+              <span class="length">SIDE A · 4:18</span>
+              <a class="play-btn" href="https://samply.app/p/fbsAr8ExLqeId5Evymhb" target="_blank" rel="noopener">▸ LISTEN</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="sleeve-credits">
+          <div class="cb"><span class="lbl">RELEASED</span><strong>2026</strong></div>
+          <div class="cb"><span class="lbl">WRITTEN BY</span><strong>Mercy Revival</strong></div>
+          <div class="cb"><span class="lbl">PRODUCED BY</span><strong>Chad Taylor</strong></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1579,8 +1841,8 @@ section {
       <defs>
         <radialGradient id="flame" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#f5e0a0" stop-opacity="1"/>
-          <stop offset="40%" stop-color="#f5904c" stop-opacity=".95"/>
-          <stop offset="100%" stop-color="#c25a2b" stop-opacity="0"/>
+          <stop offset="40%" stop-color="#e6b53d" stop-opacity=".95"/>
+          <stop offset="100%" stop-color="#9a7424" stop-opacity="0"/>
         </radialGradient>
       </defs>
       <circle cx="100" cy="140" r="80" fill="url(#flame)" opacity="0.85">
@@ -1590,10 +1852,10 @@ section {
       <circle cx="100" cy="40" r="14" fill="none" stroke="#c9a679" stroke-width="3"/>
       <line x1="100" y1="0" x2="100" y2="26" stroke="#c9a679" stroke-width="2"/>
       <path d="M 70,52 L 130,52 L 122,70 L 78,70 Z" fill="#1a1614" stroke="#c9a679" stroke-width="2"/>
-      <rect x="64" y="74" width="72" height="120" fill="rgba(245,144,76,0.15)" stroke="#c9a679" stroke-width="2"/>
+      <rect x="64" y="74" width="72" height="120" fill="rgba(230,181,61,0.15)" stroke="#c9a679" stroke-width="2"/>
       <line x1="76" y1="74" x2="76" y2="194" stroke="#c9a679" stroke-width="1.5"/>
       <line x1="124" y1="74" x2="124" y2="194" stroke="#c9a679" stroke-width="1.5"/>
-      <path d="M 100,170 C 92,150 92,140 96,128 C 92,134 86,128 90,118 C 96,120 102,112 100,100 C 108,108 112,124 110,138 C 116,134 118,142 116,152 C 112,162 104,168 100,170 Z" fill="#f5904c">
+      <path d="M 100,170 C 92,150 92,140 96,128 C 92,134 86,128 90,118 C 96,120 102,112 100,100 C 108,108 112,124 110,138 C 116,134 118,142 116,152 C 112,162 104,168 100,170 Z" fill="#e6b53d">
         <animate attributeName="opacity" values="0.9;1;0.85;1" dur="1.2s" repeatCount="indefinite"/>
       </path>
       <path d="M 70,198 L 130,198 L 122,216 L 78,216 Z" fill="#1a1614" stroke="#c9a679" stroke-width="2"/>
@@ -1670,9 +1932,37 @@ section {
      ===================================================== -->
 <section class="music-section" id="music">
   <div class="music-overhead">
-    <div class="micro">THE REVIVAL CATALOG · THROWING COPPER, RECAST</div>
-    <h3>LIVE wrote them.<br/>We rinsed them clean.</h3>
-    <p>Six songs from York, Pennsylvania's quietest loud band — pulled out of 1991 and 1994, rewired for a country that finally caught up to what they were saying. Lightning Crashes leads. The storm follows.</p>
+    <div class="micro">NEW SONGS · BORN HERE · &amp; THE REVIVAL CATALOG</div>
+    <h3>Three new songs.<br/>One long shadow.</h3>
+    <p>Three originals announce themselves — <em>Low</em>, <em>The Great Destroyer</em>, <em>Ain't No Use</em> — alongside the LIVE catalog reborn for the back-half of this decade. The first single drops first. Lightning Crashes leads the revival. The storm follows everything.</p>
+  </div>
+
+  <!-- THREE ORIGINALS — featured grid above the catalog -->
+  <div class="originals-grid">
+    <div class="og-card og-flagship">
+      <div class="og-tag"><span class="dot"></span>NEW · FIRST SINGLE</div>
+      <div class="og-title">L<span class="o">O</span>W</div>
+      <div class="og-meta">
+        <span>SIDE A · 4:18</span>
+        <span class="og-credit">MERCY REVIVAL · 2026</span>
+      </div>
+    </div>
+    <div class="og-card">
+      <div class="og-tag">NEW · ORIGINAL</div>
+      <div class="og-title">The Great<br/>Destroyer</div>
+      <div class="og-meta">
+        <span>SIDE B · 5:02</span>
+        <span class="og-credit">MERCY REVIVAL · 2026</span>
+      </div>
+    </div>
+    <div class="og-card">
+      <div class="og-tag">NEW · ORIGINAL</div>
+      <div class="og-title">Ain't<br/>No Use</div>
+      <div class="og-meta">
+        <span>B-SIDE · 3:47</span>
+        <span class="og-credit">MERCY REVIVAL · 2026</span>
+      </div>
+    </div>
   </div>
 
   <div class="music-inner">
@@ -1691,8 +1981,8 @@ section {
             <stop offset="60%" stop-color="rgba(232,220,196,0)"/>
           </radialGradient>
           <radialGradient id="labelGrad" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#f5904c"/>
-            <stop offset="60%" stop-color="#c25a2b"/>
+            <stop offset="0%" stop-color="#e6b53d"/>
+            <stop offset="60%" stop-color="#9a7424"/>
             <stop offset="100%" stop-color="#7a2a14"/>
           </radialGradient>
         </defs>
@@ -1715,7 +2005,7 @@ section {
         <g class="record-disc" id="recordDisc">
           <circle cx="240" cy="262" r="170" fill="#080605"/>
           <!-- grooves -->
-          <g stroke="rgba(245,144,76,.07)" stroke-width=".5" fill="none">
+          <g stroke="rgba(230,181,61,.07)" stroke-width=".5" fill="none">
             <circle cx="240" cy="262" r="60"/>
             <circle cx="240" cy="262" r="72"/>
             <circle cx="240" cy="262" r="84"/>
@@ -1755,21 +2045,21 @@ section {
           <path d="M 304,230 L 286,244 L 270,238 L 276,222 L 294,220 Z" fill="#1a0d08" stroke="#3a2010" stroke-width="1"/>
           <!-- needle on record -->
           <line x1="280" y1="240" x2="276" y2="248" stroke="#c9a679" stroke-width="1.6" stroke-linecap="round"/>
-          <circle cx="276" cy="248" r="1.5" fill="#f5904c"/>
+          <circle cx="276" cy="248" r="1.5" fill="#e6b53d"/>
         </g>
 
         <!-- CONTROLS PANEL -->
         <g class="controls">
           <!-- speed selector window -->
           <rect x="466" y="278" width="76" height="44" rx="4" fill="#0a0807" stroke="#3a2010" stroke-width="1"/>
-          <text x="504" y="298" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#f5904c" letter-spacing=".05em">33⅓</text>
+          <text x="504" y="298" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#e6b53d" letter-spacing=".05em">33⅓</text>
           <text x="504" y="314" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#5a3220" letter-spacing=".05em">45 · 78</text>
           <!-- start/stop button -->
           <circle cx="504" cy="350" r="14" fill="#1a0d08" stroke="#5a3220" stroke-width="1.5"/>
           <circle cx="504" cy="350" r="9" fill="#3a2010"/>
           <text x="504" y="376" text-anchor="middle" font-family="Special Elite, monospace" font-size="7" fill="#c9a679" letter-spacing=".3em">START</text>
           <!-- power LED -->
-          <circle cx="504" cy="402" r="4.5" fill="#f5904c">
+          <circle cx="504" cy="402" r="4.5" fill="#e6b53d">
             <animate attributeName="opacity" values="0.55;1;0.55" dur="2.6s" repeatCount="indefinite"/>
           </circle>
           <text x="504" y="420" text-anchor="middle" font-family="Special Elite, monospace" font-size="7" fill="#c9a679" letter-spacing=".3em">PWR</text>
@@ -1777,7 +2067,7 @@ section {
 
         <!-- BRAND PLATE -->
         <g class="brand-plate">
-          <text x="80" y="430" font-family="Rye, serif" font-size="13" fill="#c25a2b" letter-spacing=".15em">MERCY · REVIVAL</text>
+          <text x="80" y="430" font-family="Rye, serif" font-size="13" fill="#9a7424" letter-spacing=".15em">MERCY · REVIVAL</text>
           <text x="80" y="446" font-family="Special Elite, monospace" font-size="8" fill="#5a3220" letter-spacing=".25em">MODEL · MR-1959</text>
         </g>
       </svg>
@@ -1886,7 +2176,9 @@ section {
      FOOTER
      ===================================================== -->
 <footer class="footer">
-  <div class="mark">M E R C Y &nbsp; R E V I V A L</div>
+  <a href="#cover" aria-label="Mercy Revival — back to top">
+    <img class="mark" src="images/logo.png" alt="Chad Taylor's Mercy Revival"/>
+  </a>
   <div class="tag">"It's not a comeback. It's a reckoning that finally turned to morning."</div>
   <div class="links">
     <a href="#cover">TOP</a>
@@ -2331,8 +2623,8 @@ section {
     ctx.save();
     const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 50);
     grad.addColorStop(0, `rgba(245,224,160,${0.85 * flicker})`);
-    grad.addColorStop(0.4, `rgba(245,144,76,${0.35 * flicker})`);
-    grad.addColorStop(1, 'rgba(245,144,76,0)');
+    grad.addColorStop(0.4, `rgba(230,181,61,${0.35 * flicker})`);
+    grad.addColorStop(1, 'rgba(230,181,61,0)');
     ctx.fillStyle = grad;
     ctx.beginPath();
     ctx.arc(p.x, p.y, 50, 0, Math.PI * 2);
@@ -2348,7 +2640,7 @@ section {
     g.addColorStop(0, '#1a0d08'); g.addColorStop(0.5, '#2a1a0e'); g.addColorStop(1, '#3d2a18');
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = 'rgba(245,144,76,.18)';
+    ctx.strokeStyle = 'rgba(230,181,61,.18)';
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(0, canvas.height * 0.55);
@@ -2461,7 +2753,7 @@ section {
         const headY = s.y + Math.sin(s.t * s.freq * 30 + s.phase) * s.amp;
         if (dist(p.x, p.y, headX, headY) < p.r + s.r){
           Game.lives -= 1; Game.invuln = 1.4;
-          burst(p.x, p.y, '#f5904c');
+          burst(p.x, p.y, '#e6b53d');
           canvas.parentElement.style.transform = 'translate(2px,1px)';
           setTimeout(() => canvas.parentElement.style.transform = '', 80);
           updateHUD();

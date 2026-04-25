@@ -22,3 +22,6 @@ npm-debug.log*
 dist/
 build/
 .cache/
+
+# Local Netlify folder
+.netlify
