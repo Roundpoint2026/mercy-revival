@@ -1607,6 +1607,27 @@ section {
   letter-spacing: .4em;
   color: var(--bone);
   opacity: .35;
+  margin-bottom: 16px;
+}
+.footer .built-by {
+  font-family: var(--type);
+  font-size: 10px;
+  letter-spacing: .25em;
+  color: var(--bone);
+  opacity: .35;
+  transition: opacity .8s var(--ease-cinema);
+}
+.footer .built-by:hover { opacity: .7; }
+.footer .built-by a {
+  color: var(--ember);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(230,181,61,.3);
+  padding-bottom: 1px;
+  transition: color .8s, border-color .8s;
+}
+.footer .built-by a:hover {
+  color: var(--bone);
+  border-bottom-color: var(--bone);
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -2187,6 +2208,7 @@ section {
     <a href="mailto:hello@mercyrevival.com">CONTACT</a>
   </div>
   <div class="copy">© MERCY REVIVAL · ALL RIGHTS RESERVED</div>
+  <div class="built-by">Site designed &amp; built by <a href="https://mediatwistgroup.com" target="_blank" rel="noopener">The Mediatwist Group</a> in Lititz, PA</div>
 </footer>
 
 
